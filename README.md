@@ -18,7 +18,7 @@ I'm currently working towards it being header-only because:
 3. As always, the more code a compiler can see at once, the better the
    optimizations.
 
-# Building
+## Building
 
 Compiles easily in VSCode with Microsoft's official CMake plugin. Otherwise,
 try the following command from the project directory:
