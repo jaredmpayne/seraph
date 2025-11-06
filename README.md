@@ -5,8 +5,8 @@
 
 ## About
 
-This project is a work-in-progress. It was originally a library for SFML 2,
-but has recently been updated for SFML 3.
+This project is a work-in-progress. It was originally written for SFML 2, but
+has recently been updated to SFML 3.
 
 I'm currently working towards it being header-only because:
 
