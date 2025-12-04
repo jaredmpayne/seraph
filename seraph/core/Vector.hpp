@@ -79,12 +79,17 @@ public:
         return std::hypot(dx(), dy());
     }
 
-    /// Returns the equivalent `Vector` perpendicular to the caller.
+    /// Returns a `Vector` of equivalent magnitude reverse of the `Vector`.
+    constexpr Vector reversed() const noexcept {
+        return Vector(-1.0f * dx(), -1.0f * dy());
+    }
+
+    /// Returns a `Vector` of equivalent magnitude perpendicular to the `Vector`.
     constexpr Vector perpendicular() const noexcept {
         return Vector(-1.0f * dy(), dx());
     }
 
-    /// Returns the normalized magnitude of the caller.
+    /// Returns a normalized copy of the `Vector`.
     constexpr Vector normalized() const noexcept {
         const auto m = magnitude();
         return Vector(dx() / m, dy() / m);
@@ -166,6 +171,10 @@ private:
 
 constexpr Vector operator*(float magnitude, const Vector &vector) noexcept {
     return vector * magnitude;
+}
+
+constexpr Vector operator/(float magnitude, const Vector &vector) noexcept {
+    return Vector(magnitude / vector.dx(), magnitude / vector.dy());
 }
 
 namespace std {
