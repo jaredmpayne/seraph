@@ -99,17 +99,19 @@ friend class Node;
 
 private:
 
+// PACKED
+
+    std::weak_ptr<Node> m_node;
+
     std::uint64_t m_category_bit_mask;
 
     std::uint64_t m_collision_bit_mask;
-
-    bool m_is_gravitant = false;
-
-    float m_mass = 1.0f;
 
     Vector m_force;
 
     Vector m_velocity;
 
-    std::weak_ptr<Node> m_node;
+    float m_mass = 1.0f;
+
+    bool m_is_gravitant = false;
 };

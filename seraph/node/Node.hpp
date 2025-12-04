@@ -143,7 +143,7 @@ friend class Game;
 
 private:
 
-// NOTE: Has been ordered to minimize size.
+// PACKED
 
     std::string m_name;
 

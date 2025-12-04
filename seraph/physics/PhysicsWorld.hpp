@@ -49,7 +49,9 @@ private:
 
     void apply_velocity(const std::vector<std::shared_ptr<PhysicsBody>> &physics_bodies, float delta_time) const noexcept;
 
-    float m_speed = 1.0f;
+// PACKED
 
     Vector m_gravity;
+
+    float m_speed = 1.0f;
 };
