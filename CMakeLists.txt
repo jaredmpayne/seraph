@@ -6,6 +6,16 @@ add_library(
     seraph
 
     STATIC
+
+    seraph/action/FunctionAction.cpp
+    seraph/action/InfiniteAction.cpp
+    seraph/action/MoveAction.cpp
+    seraph/action/ParallelAction.cpp
+    seraph/action/RepeatAction.cpp
+    seraph/action/RotateAction.cpp
+    seraph/action/ScaleAction.cpp
+    seraph/action/SequenceAction.cpp
+    seraph/action/WaitAction.cpp
     
     seraph/core/Game.cpp
     seraph/core/Window.cpp
@@ -20,7 +30,6 @@ add_library(
     seraph/node/SoundNode.cpp
     seraph/node/SpriteNode.cpp
 
-    seraph/physics/PhysicsBody.cpp
     seraph/physics/PhysicsWorld.cpp
     seraph/physics/RectanglePhysicsBody.cpp
 )
