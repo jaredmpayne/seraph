@@ -14,7 +14,7 @@
 
 class Scene;
 
-/// A node with no personal content.
+/// A node with no observable content.
 class Node : public std::enable_shared_from_this<Node> {
 
 public:
@@ -25,19 +25,13 @@ public:
 
 // SECTION: Node Properties
 
-    constexpr const std::string &name() const noexcept {
-        return m_name;
-    }
-
-    inline void set_name(const std::string &name) noexcept {
-        m_name = name;
-    }
-
     constexpr const Point &position() const noexcept {
         return m_position;
     }
 
     virtual void set_position(const Point &position);
+
+    Point absolute_position() const noexcept;
 
     constexpr float rotation() const noexcept {
         return m_rotation;
@@ -47,6 +41,8 @@ public:
         m_rotation = rotation;
     }
 
+    float absolute_rotation() const noexcept;
+
     constexpr const Vector &scale() const noexcept {
         return m_scale;
     }
@@ -54,6 +50,8 @@ public:
     inline void set_scale(const Vector &scale) noexcept {
         m_scale = scale;
     }
+
+    Vector absolute_scale() const noexcept;
 
     constexpr float alpha() const noexcept {
         return m_alpha;
@@ -63,6 +61,8 @@ public:
         m_alpha = std::clamp(0.0f, 1.0f, alpha);
     }
 
+    float absolute_alpha() const noexcept;
+
     constexpr bool is_hidden() const noexcept {
         return m_is_hidden;
     }
@@ -71,13 +71,13 @@ public:
         m_is_hidden = is_hidden;
     }
 
-    Point absolute_position() const noexcept;
+    constexpr const std::string &name() const noexcept {
+        return m_name;
+    }
 
-    float absolute_rotation() const noexcept;
-
-    Vector absolute_scale() const noexcept;
-
-    float absolute_alpha() const noexcept;
+    inline void set_name(const std::string &name) noexcept {
+        m_name = name;
+    }
 
 // SECTION: Node Hierarchy
 
@@ -143,23 +143,25 @@ friend class Game;
 
 private:
 
+// NOTE: Has been ordered to minimize size.
+
     std::string m_name;
+
+    std::vector<std::shared_ptr<Node>> m_children;
+
+    std::weak_ptr<Node> m_parent;
+
+    std::shared_ptr<PhysicsBody> m_physics_body;
 
     Point m_position;
 
-    float m_rotation;
-
     Vector m_scale = Vector::one();
+
+    float m_rotation;
 
     float m_alpha = 1.0f;
 
     bool m_is_hidden;
-
-    std::weak_ptr<Node> m_parent;
-
-    std::vector<std::shared_ptr<Node>> m_children;
-
-    std::shared_ptr<PhysicsBody> m_physics_body;
 
     bool m_is_initialized;
 };
