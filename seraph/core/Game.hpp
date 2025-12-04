@@ -47,7 +47,7 @@ private:
 
     void draw(const std::shared_ptr<Node> &node);
 
-    std::shared_ptr<Scene> m_scene;
-
     Window m_window;
+
+    std::shared_ptr<Scene> m_scene;
 };
