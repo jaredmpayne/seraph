@@ -68,9 +68,9 @@ public:
 
 private:
 
+    sf::CircleShape m_shape;
+
     Color m_fill_color;
 
     Color m_stroke_color;
-
-    sf::CircleShape m_shape;
 };

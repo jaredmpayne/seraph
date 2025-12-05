@@ -26,7 +26,7 @@ public:
 
 private:
 
-    std::shared_ptr<sf::Texture> m_texture;
-
     std::optional<sf::Sprite> m_sprite;
+
+    std::shared_ptr<sf::Texture> m_texture;
 };

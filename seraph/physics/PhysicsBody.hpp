@@ -99,8 +99,6 @@ friend class Node;
 
 private:
 
-// PACKED
-
     std::weak_ptr<Node> m_node;
 
     std::uint64_t m_category_bit_mask;

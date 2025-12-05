@@ -143,8 +143,6 @@ friend class Game;
 
 private:
 
-// PACKED
-
     std::string m_name;
 
     std::vector<std::shared_ptr<Node>> m_children;

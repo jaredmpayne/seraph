@@ -44,7 +44,7 @@ public:
 
 private:
 
-    Color m_background_color;
-
     PhysicsWorld m_physics_world;
+
+    Color m_background_color;
 };

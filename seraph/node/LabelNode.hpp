@@ -71,9 +71,9 @@ public:
 
 private:
 
-    std::shared_ptr<sf::Font> m_font;
-
     sf::Text m_text;
+
+    std::shared_ptr<sf::Font> m_font;
 
     Color m_fill_color;
 
