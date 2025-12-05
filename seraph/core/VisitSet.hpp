@@ -1,14 +1,12 @@
 #pragma once
 
-namespace detail {
-
 // Allows an overridable syntax for `std::visit` calls.
 //
 // Example:
 //
 // ```
 // std::visit(
-//     VisitorSet {
+//     VisitSet {
 //         [](const T1 &) { ... },
 //         [](const T2 &) { ... },
 //         [](const auto &) { (default case) }
@@ -17,9 +15,7 @@ namespace detail {
 // );
 // ```
 template<class... Ts>
-struct VisitorSet : Ts... {
+struct VisitSet : Ts... {
     
     using Ts::operator()...;
 };
-
-}

@@ -7,8 +7,8 @@
 #include <seraph/core/Clock.hpp>
 #include <seraph/core/Input.hpp>
 #include <seraph/core/Size.hpp>
+#include <seraph/core/VisitSet.hpp>
 #include <seraph/core/Window.hpp>
-#include <seraph/detail/VisitorSet.hpp>
 #include <seraph/event/FocusGainedEvent.hpp>
 #include <seraph/event/FocusLostEvent.hpp>
 #include <seraph/event/KeyPressedEvent.hpp>
@@ -41,7 +41,7 @@ int Game::run() {
 void Game::process_events() {
     while (const auto event = m_window.next_event()) {
         std::visit(
-            detail::VisitorSet {
+            VisitSet {
                 [&](const FocusGainedEvent &event) {
                     on_gain_focus();
                 },
