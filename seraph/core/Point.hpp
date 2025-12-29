@@ -40,7 +40,7 @@ public:
         return m_x;
     }
 
-    inline void set_x(float x) noexcept {
+    void set_x(float x) noexcept {
         m_x = x;
     }
 
@@ -48,7 +48,7 @@ public:
         return m_y;
     }
 
-    inline void set_y(float y) noexcept {
+    void set_y(float y) noexcept {
         m_y = y;
     }
 

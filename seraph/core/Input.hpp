@@ -61,27 +61,27 @@ public:
 private:
 friend class Game;
 
-    inline void set_key_up(KeyCode key_code) noexcept {
+    void set_key_up(KeyCode key_code) noexcept {
         m_key_up.insert(key_code);
         m_key.erase(key_code);
     }
 
-    inline void set_key_down(KeyCode key_code) noexcept {
+    void set_key_down(KeyCode key_code) noexcept {
         m_key_down.insert(key_code);
         m_key.insert(key_code);
     }
 
-    inline void set_mouse_up(MouseCode mouse_code) noexcept {
+    void set_mouse_up(MouseCode mouse_code) noexcept {
         m_mouse_up.insert(mouse_code);
         m_mouse.erase(mouse_code);
     }
 
-    inline void set_mouse_down(MouseCode mouse_code) noexcept {
+    void set_mouse_down(MouseCode mouse_code) noexcept {
         m_mouse_down.insert(mouse_code);
         m_mouse.insert(mouse_code);
     }
 
-    inline void set_mouse_position(const Point &mouse_position) noexcept {
+    void set_mouse_position(const Point &mouse_position) noexcept {
         m_mouse_position = mouse_position;
     }
 
@@ -89,7 +89,7 @@ private:
 
     Input() noexcept = default;
 
-    inline void tick_next_update() noexcept {
+    void tick_next_update() noexcept {
         m_key_up.clear();
         m_key_down.clear();
     }

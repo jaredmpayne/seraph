@@ -25,7 +25,7 @@ public:
         return m_speed;
     }
 
-    inline void set_speed(float speed) noexcept {
+    void set_speed(float speed) noexcept {
         m_speed = speed;
     }
 
@@ -33,7 +33,7 @@ public:
         return m_gravity;
     }
 
-    inline void set_gravity(const Vector &gravity) noexcept {
+    void set_gravity(const Vector &gravity) noexcept {
         m_gravity = gravity;
     }
 

@@ -13,7 +13,7 @@ class Game {
 
 public:
 
-    inline Game(const std::shared_ptr<Scene> &scene) noexcept :
+    Game(const std::shared_ptr<Scene> &scene) noexcept :
         m_scene(scene),
         m_window(Size(1280, 720), "Window") { }
 
@@ -21,17 +21,17 @@ public:
         return 1.0f / 60.0f;
     }
     
-    inline std::shared_ptr<Scene> scene() const {
+    std::shared_ptr<Scene> scene() const {
         return m_scene;
     }
 
-    inline void set_scene(const std::shared_ptr<Scene> &scene) {
+    void set_scene(const std::shared_ptr<Scene> &scene) {
         m_scene = scene;
     }
 
-    inline virtual void on_gain_focus() { }
+    virtual void on_gain_focus() { }
 
-    inline virtual void on_lose_focus() { }
+    virtual void on_lose_focus() { }
 
     int run();
 

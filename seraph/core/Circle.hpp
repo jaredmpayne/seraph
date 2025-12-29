@@ -39,7 +39,7 @@ public:
     }
 
     /// Sets the `Point` position of the `Circle`.
-    inline void set_position(const Point &position) noexcept {
+    void set_position(const Point &position) noexcept {
         m_position = position;
     }
 
@@ -49,7 +49,7 @@ public:
     }
 
     /// An alias for `position().set_x()`.
-    inline void set_x(float x) noexcept {
+    void set_x(float x) noexcept {
         m_position.set_x(x);
     }
 
@@ -59,7 +59,7 @@ public:
     }
 
     /// An alias for `position().set_y()`.
-    inline void set_y(float y) noexcept {
+    void set_y(float y) noexcept {
         m_position.set_y(y);
     }
 
@@ -69,7 +69,7 @@ public:
     }
 
     /// Sets the radius of the `Circle`.
-    inline void set_radius(float radius) noexcept {
+    void set_radius(float radius) noexcept {
         m_radius = radius;
     }
 

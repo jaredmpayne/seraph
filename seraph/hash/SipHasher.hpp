@@ -36,12 +36,12 @@ public:
 
     /// Hash an object as a sequence of bytes.
     template <typename T>
-    inline void write(const T &object) noexcept {
+    void write(const T &object) noexcept {
         write ((std::uint8_t *)(&object), sizeof(T));
     }
 
     /// Resets the `SipHasher` to its initial state.
-    inline void reset() noexcept {
+    void reset() noexcept {
         m_v0 = m_k0 ^ 0x736f6d6570736575;
         m_v1 = m_k1 ^ 0x646f72616e646f6d;
         m_v2 = m_k0 ^ 0x6c7967656e657261;
@@ -52,11 +52,11 @@ private:
 
     void sip_round() noexcept;
 
-    inline std::uint64_t rotate_left(std::uint64_t word, std::uint64_t count) noexcept {
+    std::uint64_t rotate_left(std::uint64_t word, std::uint64_t count) noexcept {
         return (word << count) | (word >> (64 - count));
     }
 
-    inline std::uint64_t rotate_right(std::uint64_t word, std::uint64_t count) noexcept {
+    std::uint64_t rotate_right(std::uint64_t word, std::uint64_t count) noexcept {
         return (word >> count) | (word << (64 - count));
     }
 

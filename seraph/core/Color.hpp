@@ -82,7 +82,7 @@ public:
         return m_r;
     }
 
-    inline void set_r(std::uint8_t r) noexcept {
+    void set_r(std::uint8_t r) noexcept {
         m_r = r;
     }
 
@@ -91,7 +91,7 @@ public:
         return m_g;
     }
 
-    inline void set_g(std::uint8_t g) noexcept {
+    void set_g(std::uint8_t g) noexcept {
         m_g = g;
     }
 
@@ -100,7 +100,7 @@ public:
         return m_b;
     }
 
-    inline void set_b(std::uint8_t b) noexcept {
+    void set_b(std::uint8_t b) noexcept {
         m_b = b;
     }
 
@@ -109,7 +109,7 @@ public:
         return m_a;
     }
 
-    inline void set_a(std::uint8_t a) noexcept {
+    void set_a(std::uint8_t a) noexcept {
         m_a = a;
     }
 

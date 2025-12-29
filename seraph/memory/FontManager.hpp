@@ -16,7 +16,7 @@ public:
         return instance;
     }
 
-    virtual inline std::shared_ptr<sf::Font> make(const std::filesystem::path &path) override {
+    virtual std::shared_ptr<sf::Font> make(const std::filesystem::path &path) override {
         return std::make_shared<sf::Font>(path);
     }
 

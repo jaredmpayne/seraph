@@ -62,7 +62,7 @@ public:
         return m_dx;
     }
 
-    inline void set_dx(float dx) noexcept {
+    void set_dx(float dx) noexcept {
         m_dx = dx;
     }
 
@@ -70,7 +70,7 @@ public:
         return m_dy;
     }
 
-    inline void set_dy(float dy) noexcept {
+    void set_dy(float dy) noexcept {
         m_dy = dy;
     }
 

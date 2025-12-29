@@ -29,7 +29,7 @@ public:
         return m_width;
     }
 
-    inline void set_width(float width) noexcept {
+    void set_width(float width) noexcept {
         m_width = width;
     }
 
@@ -37,7 +37,7 @@ public:
         return m_height;
     }
 
-    inline void set_height(float height) noexcept {
+    void set_height(float height) noexcept {
         m_height = height;
     }
 

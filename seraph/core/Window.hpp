@@ -19,23 +19,23 @@ class Window {
 
 public:
 
-    inline Window(const Size &size, const std::string &title) :
+    Window(const Size &size, const std::string &title) :
         m_render_window(sf::VideoMode(sf::Vector2u(size.width(), size.height())), title) { }
 
-    inline bool is_open() const {
+    bool is_open() const {
         return m_render_window.isOpen();
     }
 
-    inline void close() {
+    void close() {
         m_render_window.close();
     }
 
-    inline void clear(const Color &color) {
+    void clear(const Color &color) {
         const auto [r, g, b, a] = color;
         m_render_window.clear(sf::Color(r, g, b, a));
     }
 
-    inline void display() {
+    void display() {
         m_render_window.display();
     }
 
@@ -46,7 +46,7 @@ friend class LabelNode;
 friend class ShapeNode;
 friend class SpriteNode;
 
-    inline sf::RenderWindow &render_window() {
+    sf::RenderWindow &render_window() {
         return m_render_window;
     }
 

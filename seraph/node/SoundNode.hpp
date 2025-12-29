@@ -22,7 +22,7 @@ public:
         return m_sound.value().isSpatializationEnabled();
     }
 
-    inline void set_is_positional(bool is_positional) {
+    void set_is_positional(bool is_positional) {
         m_sound.value().setSpatializationEnabled(is_positional);
     }
 
@@ -30,19 +30,19 @@ public:
         return m_sound.value().isLooping();
     }
 
-    inline void set_is_looping(bool is_looping) {
+    void set_is_looping(bool is_looping) {
         m_sound.value().setLooping(is_looping);
     }
 
-    inline void play() {
+    void play() {
         m_sound.value().play();
     }
 
-    inline void pause() {
+    void pause() {
         m_sound.value().pause();
     }
 
-    inline void stop() {
+    void stop() {
         m_sound.value().stop();
     }
 

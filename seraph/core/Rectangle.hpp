@@ -46,7 +46,7 @@ public:
         return m_position;
     }
 
-    inline void set_position(const Point &position) noexcept {
+    void set_position(const Point &position) noexcept {
         m_position = position;
     }
 
@@ -54,7 +54,7 @@ public:
         return m_size;
     }
 
-    inline void set_size(const Size &size) noexcept {
+    void set_size(const Size &size) noexcept {
         m_size = size;
     }
 
@@ -62,7 +62,7 @@ public:
         return position().x();
     }
 
-    inline void set_x(float x) noexcept {
+    void set_x(float x) noexcept {
         m_position.set_x(x);
     }
 
@@ -70,7 +70,7 @@ public:
         return position().y();
     }
 
-    inline void set_y(float y) noexcept {
+    void set_y(float y) noexcept {
         m_position.set_y(y);
     }
 
@@ -78,7 +78,7 @@ public:
         return size().width();
     }
 
-    inline void set_width(float width) noexcept {
+    void set_width(float width) noexcept {
         m_size.set_width(width);
     }
 
@@ -86,7 +86,7 @@ public:
         return size().height();
     }
 
-    inline void set_height(float height) noexcept {
+    void set_height(float height) noexcept {
         m_size.set_height(height);
     }
 

@@ -22,7 +22,7 @@ public:
         return m_shape.getRadius();
     }
 
-    inline void set_radius(float radius) {
+    void set_radius(float radius) {
         m_shape.setRadius(radius);
         m_shape.setOrigin(sf::Vector2f(radius, radius));
     }
@@ -31,7 +31,7 @@ public:
         return m_shape.getPointCount();
     }
 
-    inline void set_sides_count(unsigned int sides_count) {
+    void set_sides_count(unsigned int sides_count) {
         m_shape.setPointCount(sides_count);
     }
 
@@ -48,7 +48,7 @@ public:
         return m_shape.getOutlineThickness();
     }
 
-    inline void set_stroke(float stroke) {
+    void set_stroke(float stroke) {
         m_shape.setOutlineThickness(stroke);
     }
 
@@ -56,7 +56,7 @@ public:
         return m_stroke_color;
     }
 
-    inline void set_stroke_color(const Color &stroke_color) {
+    void set_stroke_color(const Color &stroke_color) {
         m_stroke_color = stroke_color;
         const auto [r, g, b, a] = stroke_color;
         m_shape.setOutlineColor(sf::Color(r, g, b, a));

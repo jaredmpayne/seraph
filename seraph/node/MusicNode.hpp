@@ -17,51 +17,51 @@ public:
 
     virtual void set_position(const Point &position) override;
 
-    inline bool is_positional() const {
+    bool is_positional() const {
         return m_music.isSpatializationEnabled();
     }
 
-    inline void set_is_positional(bool is_positional) {
+    void set_is_positional(bool is_positional) {
         m_music.setSpatializationEnabled(is_positional);
     }
 
-    inline bool is_looping() const {
+    bool is_looping() const {
         return m_music.isLooping();
     }
 
-    inline void set_is_looping(bool is_looping) {
+    void set_is_looping(bool is_looping) {
         m_music.setLooping(is_looping);
     }
 
     template <typename Rep, typename Period>
-    inline const std::chrono::duration<Rep, Period> &loop_offset() const {
+    const std::chrono::duration<Rep, Period> &loop_offset() const {
         return m_music.getLoopPoints().offset;
     }
 
     template <typename Rep, typename Period>
-    inline void set_loop_offset(const std::chrono::duration<Rep, Period> &loop_offset) {
+    void set_loop_offset(const std::chrono::duration<Rep, Period> &loop_offset) {
         m_music.setLoopPoints(sf::Music::TimeSpan(loop_offset, m_music.getLoopPoints().length));
     }
 
     template <typename Rep, typename Period>
-    inline const std::chrono::duration<Rep, Period> &loop_length() const {
+    const std::chrono::duration<Rep, Period> &loop_length() const {
         return m_music.getLoopPoints().length;
     }
 
     template <typename Rep, typename Period>
-    inline void set_loop_length(const std::chrono::duration<Rep, Period> &loop_length) {
+    void set_loop_length(const std::chrono::duration<Rep, Period> &loop_length) {
         m_music.setLoopPoints(sf::Music::TimeSpan(m_music.getLoopPoints().offset, loop_length));
     }
 
-    inline void play() {
+    void play() {
         m_music.play();
     }
 
-    inline void pause() {
+    void pause() {
         m_music.pause();
     }
 
-    inline void stop() {
+    void stop() {
         m_music.stop();
     }
 

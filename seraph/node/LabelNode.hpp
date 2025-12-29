@@ -20,20 +20,20 @@ public:
 
     virtual ~LabelNode() override = default;
 
-    inline std::u32string_view string_view() const {
+    std::u32string_view string_view() const {
         return std::u32string_view(m_text.getString().getData());
     }
 
-    inline void set_string(const std::u32string &string) {
+    void set_string(const std::u32string &string) {
         m_text.setString(sf::String(string));
         m_text.setOrigin(0.5f * m_text.getLocalBounds().size);
     }
 
-    inline unsigned int font_size() const {
+    unsigned int font_size() const {
         return m_text.getCharacterSize();
     }
 
-    inline void set_font_size(unsigned int font_size) {
+    void set_font_size(unsigned int font_size) {
         m_text.setCharacterSize(font_size);
     }
 
@@ -41,17 +41,17 @@ public:
         return m_fill_color;
     }
 
-    inline void set_fill_color(const Color &fill_color) {
+    void set_fill_color(const Color &fill_color) {
         m_fill_color = fill_color;
         const auto [r, g, b, a] = fill_color;
         m_text.setFillColor(sf::Color(r, g, b, a));
     }
 
-    inline float stroke() const {
+    float stroke() const {
         return m_text.getOutlineThickness();
     }
 
-    inline void set_stroke(float stroke) {
+    void set_stroke(float stroke) {
         m_text.setOutlineThickness(stroke);
     }
 
@@ -59,7 +59,7 @@ public:
         return m_stroke_color;
     }
 
-    inline void set_stroke_color(const Color &stroke_color) {
+    void set_stroke_color(const Color &stroke_color) {
         m_stroke_color = stroke_color;
         const auto [r, g, b, a] = stroke_color;
         m_text.setOutlineColor(sf::Color(r, g, b, a));

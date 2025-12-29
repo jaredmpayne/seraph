@@ -24,7 +24,7 @@ public:
     }
 
     /// Resets the `Clock` and returns the prior time elapsed.
-    inline float restart() noexcept {
+    float restart() noexcept {
         const auto previous = m_previous;
         m_previous = std::chrono::steady_clock::now();
         return std::chrono::duration<float>(m_previous - previous).count();

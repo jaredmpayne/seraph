@@ -28,7 +28,7 @@ public:
         return m_category_bit_mask;
     }
 
-    inline void set_category_bit_mask(std::uint64_t category_bit_mask) noexcept {
+    void set_category_bit_mask(std::uint64_t category_bit_mask) noexcept {
         m_category_bit_mask = category_bit_mask;
     }
 
@@ -37,7 +37,7 @@ public:
         return m_collision_bit_mask;
     }
 
-    inline void set_collision_bit_mask(std::uint64_t collision_bit_mask) noexcept {
+    void set_collision_bit_mask(std::uint64_t collision_bit_mask) noexcept {
         m_collision_bit_mask = collision_bit_mask;
     }
 
@@ -46,7 +46,7 @@ public:
         return m_is_gravitant;
     }
 
-    inline void set_is_gravitant(bool is_gravitant) noexcept {
+    void set_is_gravitant(bool is_gravitant) noexcept {
         m_is_gravitant = is_gravitant;
     }
 
@@ -55,7 +55,7 @@ public:
         return m_mass;
     }
 
-    inline void set_mass(float mass) noexcept {
+    void set_mass(float mass) noexcept {
         m_mass = mass;
     }
 
@@ -64,7 +64,7 @@ public:
         return m_force;
     }
 
-    inline void set_force(const Vector &force) noexcept {
+    void set_force(const Vector &force) noexcept {
         m_force = force;
     }
 
@@ -73,15 +73,15 @@ public:
         return m_velocity;
     }
 
-    inline void set_velocity(const Vector &velocity) noexcept {
+    void set_velocity(const Vector &velocity) noexcept {
         m_velocity = velocity;
     }
 
-    inline std::shared_ptr<Node> node() const noexcept {
+    std::shared_ptr<Node> node() const noexcept {
         return m_node.lock();
     }
 
-    inline bool can_collide(const PhysicsBody &other) const noexcept {
+    bool can_collide(const PhysicsBody &other) const noexcept {
         return (collision_bit_mask() & other.category_bit_mask()) != std::uint64_t(0);
     }
 
@@ -93,7 +93,7 @@ public:
 private:
 friend class Node;
 
-    inline void set_node(const std::shared_ptr<Node> &node) noexcept {
+    void set_node(const std::shared_ptr<Node> &node) noexcept {
         m_node = node;
     }
 

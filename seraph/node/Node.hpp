@@ -37,7 +37,7 @@ public:
         return m_rotation;
     }
 
-    inline void set_rotation(float rotation) noexcept {
+    void set_rotation(float rotation) noexcept {
         m_rotation = rotation;
     }
 
@@ -47,7 +47,7 @@ public:
         return m_scale;
     }
 
-    inline void set_scale(const Vector &scale) noexcept {
+    void set_scale(const Vector &scale) noexcept {
         m_scale = scale;
     }
 
@@ -57,7 +57,7 @@ public:
         return m_alpha;
     }
 
-    inline void set_alpha(float alpha) noexcept {
+    void set_alpha(float alpha) noexcept {
         m_alpha = std::clamp(0.0f, 1.0f, alpha);
     }
 
@@ -67,7 +67,7 @@ public:
         return m_is_hidden;
     }
 
-    inline void set_is_hidden(bool is_hidden) noexcept {
+    void set_is_hidden(bool is_hidden) noexcept {
         m_is_hidden = is_hidden;
     }
 
@@ -75,13 +75,13 @@ public:
         return m_name;
     }
 
-    inline void set_name(const std::string &name) noexcept {
+    void set_name(const std::string &name) noexcept {
         m_name = name;
     }
 
 // SECTION: Node Hierarchy
 
-    inline std::shared_ptr<Node> parent() const noexcept {
+    std::shared_ptr<Node> parent() const noexcept {
         return m_parent.lock();
     }
 
@@ -126,7 +126,7 @@ public:
 
 private:
 
-    inline void set_parent(const std::shared_ptr<Node> &parent) {
+    void set_parent(const std::shared_ptr<Node> &parent) {
         m_parent = parent;
     }
 
@@ -137,7 +137,7 @@ friend class Game;
         return m_is_initialized;
     }
 
-    inline void set_is_initialized(bool is_initialized) {
+    void set_is_initialized(bool is_initialized) {
         m_is_initialized = is_initialized;
     }
 

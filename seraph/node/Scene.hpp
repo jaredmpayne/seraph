@@ -24,7 +24,7 @@ public:
         return m_background_color;
     }
 
-    inline void set_background_color(const Color &background_color) noexcept {
+    void set_background_color(const Color &background_color) noexcept {
         m_background_color = background_color;
     }
 
@@ -36,7 +36,7 @@ public:
         return m_physics_world;
     }
 
-    inline void set_physics_world(const PhysicsWorld &physics_world) noexcept {
+    void set_physics_world(const PhysicsWorld &physics_world) noexcept {
         m_physics_world = physics_world;
     }
 
