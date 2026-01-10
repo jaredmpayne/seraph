@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 
+#include <seraph/action/AnyAction.hpp>
 #include <seraph/core/Point.hpp>
 #include <seraph/core/Rectangle.hpp>
 #include <seraph/core/Vector.hpp>
@@ -110,6 +111,40 @@ public:
 
     void set_physics_body(const std::shared_ptr<PhysicsBody> &physics_body);
 
+// SECTION: Actions
+
+    constexpr const std::vector<AnyAction> &actions() const noexcept {
+        return m_actions;
+    }
+
+    constexpr bool has_actions() const noexcept {
+        return actions().empty();
+    }
+
+    void add_action(const AnyAction &action) noexcept {
+        m_actions.push_back(action);
+    }
+
+    void remove_all_actions() noexcept {
+        m_actions.clear();
+    }
+
+    constexpr float speed() const noexcept {
+        return m_speed;
+    }
+
+    void set_speed(float speed) noexcept {
+        m_speed = speed;
+    }
+
+    constexpr bool is_paused() const noexcept {
+        return m_is_paused;
+    }
+
+    void set_is_paused(bool is_paused) noexcept {
+        m_is_paused = is_paused;
+    }
+
 // SECTION: Virtual Methods
 
     virtual Rectangle frame() const;
@@ -147,6 +182,8 @@ private:
 
     std::vector<std::shared_ptr<Node>> m_children;
 
+    std::vector<AnyAction> m_actions;
+
     std::weak_ptr<Node> m_parent;
 
     std::shared_ptr<PhysicsBody> m_physics_body;
@@ -159,7 +196,11 @@ private:
 
     float m_alpha = 1.0f;
 
+    float m_speed = 1.0f;
+
     bool m_is_hidden;
+
+    bool m_is_paused;
 
     bool m_is_initialized;
 };
