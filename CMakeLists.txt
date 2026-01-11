@@ -58,20 +58,21 @@ target_link_libraries(
     -lsfml-window
 )
 
-# enable_testing()
+enable_testing()
 
-# add_executable(
-#     seraph_tests
-#     tests/main.cpp
-# )
-# target_include_directories(
-#     seraph_tests
-#     PRIVATE
-#     .
-# )
-# target_link_libraries(
-#     seraph_tests
-#     PRIVATE
-#     seraph
-# )
-# add_test(seraph_tests seraph_tests)
+add_executable(
+    seraph_tests
+    tests/core/PointTests.cpp
+    tests/main.cpp
+)
+target_include_directories(
+    seraph_tests
+    PRIVATE
+    .
+)
+target_link_libraries(
+    seraph_tests
+    PRIVATE
+    seraph
+)
+add_test(seraph_tests seraph_tests)
