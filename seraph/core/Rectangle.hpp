@@ -1,7 +1,6 @@
 #pragma once
 
 #include <array>
-#include <compare>
 #include <iostream>
 #include <tuple>
 
@@ -24,7 +23,7 @@ public:
 
     constexpr Rectangle &operator=(const Rectangle &) noexcept = default;
 
-    constexpr std::strong_ordering operator<=>(const Rectangle &) const noexcept = default;
+    constexpr auto operator<=>(const Rectangle &) const noexcept = default;
 
     /// Constructs a `Rectangle` of the given position and size.
     constexpr Rectangle(const Point &position, const Size &size) noexcept :

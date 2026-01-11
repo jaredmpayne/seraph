@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cmath>
-#include <compare>
 #include <format>
 #include <iostream>
 #include <numeric>
@@ -24,7 +23,7 @@ public:
 
     constexpr Point &operator=(const Point &) noexcept = default;
 
-    constexpr std::strong_ordering operator<=>(const Point &) const noexcept = default;
+    constexpr auto operator<=>(const Point &) const noexcept = default;
 
     /// Constructs a `Point` with the given coordinates.
     constexpr Point(float x, float y) noexcept :

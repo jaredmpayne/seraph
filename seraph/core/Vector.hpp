@@ -1,6 +1,5 @@
 #pragma once
 
-#include <compare>
 #include <format>
 #include <iostream>
 #include <tuple>
@@ -21,7 +20,7 @@ public:
 
     constexpr Vector &operator=(const Vector &) noexcept = default;
 
-    constexpr std::strong_ordering operator<=>(const Vector &) const noexcept = default;
+    constexpr auto operator<=>(const Vector &) const noexcept = default;
 
     /// Constructs a `Vector` with the given *dx* and *dy* magnitudes.
     constexpr Vector(float dx, float dy) noexcept :

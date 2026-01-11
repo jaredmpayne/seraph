@@ -1,6 +1,5 @@
 #pragma once
 
-#include <compare>
 #include <numbers>
 
 #include <seraph/core/Point.hpp>
@@ -23,7 +22,7 @@ public:
     /// Compares two `Circle` objects.
     ///
     /// The objects are compared by `position` then `radius`.
-    constexpr std::strong_ordering operator<=>(const Circle &) const noexcept = default;
+    constexpr auto operator<=>(const Circle &) const noexcept = default;
 
     /// Constructs a `Circle` with `radius` at `position`.
     constexpr Circle(const Point &position, float radius) noexcept :

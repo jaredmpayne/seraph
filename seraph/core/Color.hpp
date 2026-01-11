@@ -1,6 +1,5 @@
 #pragma once
 
-#include <compare>
 #include <cstdint>
 #include <format>
 #include <iostream>
@@ -23,7 +22,7 @@ public:
 
     constexpr Color &operator=(const Color &) noexcept = default;
 
-    constexpr std::strong_ordering operator<=>(const Color &other) const noexcept = default;
+    constexpr auto operator<=>(const Color &other) const noexcept = default;
 
     /// Constructs a `Color` of the given hue and alpha values.
     constexpr Color(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a = 255) noexcept :

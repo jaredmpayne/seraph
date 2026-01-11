@@ -1,6 +1,5 @@
 #pragma once
 
-#include <compare>
 #include <format>
 #include <iostream>
 #include <tuple>
@@ -19,7 +18,7 @@ public:
 
     constexpr Size &operator=(const Size &) = default;
 
-    constexpr std::strong_ordering operator<=>(const Size &other) const noexcept = default;
+    constexpr auto operator<=>(const Size &other) const noexcept = default;
 
     constexpr Size(float width, float height) noexcept :
         m_width(width),

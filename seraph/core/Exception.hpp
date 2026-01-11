@@ -1,6 +1,5 @@
 #pragma once
 
-#include <compare>
 #include <string>
 
 class Exception {
@@ -15,7 +14,7 @@ public:
 
     constexpr Exception &operator=(const Exception &) noexcept = default;
 
-    constexpr std::strong_ordering operator<=>(const Exception &) const noexcept = default;
+    constexpr auto operator<=>(const Exception &) const noexcept = default;
 
     constexpr Exception(const std::string &what) noexcept :
         m_what(what) { }

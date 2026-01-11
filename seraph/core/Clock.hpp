@@ -16,7 +16,7 @@ public:
 
     constexpr Clock &operator=(const Clock &) noexcept = default;
 
-    constexpr std::strong_ordering operator<=>(const Clock &) const noexcept = default;
+    constexpr auto operator<=>(const Clock &) const noexcept = default;
 
     /// The time passed since the `Clock` was either constructed or last restarted.
     constexpr float time_elapsed() const noexcept {
