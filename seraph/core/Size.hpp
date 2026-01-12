@@ -71,7 +71,7 @@ namespace std {
     template <>
     struct hash<Size> {
 
-        inline size_t operator()(const Size &size) const noexcept {
+        size_t operator()(const Size &size) const noexcept {
             auto hasher = SipHasher();
             hasher.write(size);
             return hasher.value();
@@ -85,7 +85,7 @@ namespace std {
             return context.begin();
         }
 
-        inline format_context::iterator format(const Size &size, format_context &context) const noexcept {
+        format_context::iterator format(const Size &size, format_context &context) const noexcept {
             const auto [width, height] = size;
             return format_to(context.out(), "Size(width: {}, height: {})", width, height);
         };

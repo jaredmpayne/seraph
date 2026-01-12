@@ -240,7 +240,7 @@ namespace std {
     template <>
     struct hash<Rectangle> {
 
-        inline size_t operator()(const Rectangle &rectangle) const noexcept {
+        size_t operator()(const Rectangle &rectangle) const noexcept {
             auto hasher = SipHasher();
             hasher.write(rectangle);
             return hasher.value();
@@ -254,7 +254,7 @@ namespace std {
             return context.begin();
         }
 
-        inline format_context::iterator format(const Rectangle &rectangle, format_context &context) const noexcept {
+        format_context::iterator format(const Rectangle &rectangle, format_context &context) const noexcept {
             const auto [p, s] = rectangle;
             return format_to(context.out(), "Rectangle(position: {}, size: {})", p, s);
         };

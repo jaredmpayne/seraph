@@ -133,7 +133,7 @@ namespace std {
     template <>
     struct hash<Circle> {
 
-        inline size_t operator()(const Circle &circle) const noexcept {
+        size_t operator()(const Circle &circle) const noexcept {
             auto hasher = SipHasher();
             hasher.write(circle);
             return hasher.value();
@@ -147,7 +147,7 @@ namespace std {
             return context.begin();
         }
 
-        inline format_context::iterator format(const Circle &circle, format_context &context) const noexcept {
+        format_context::iterator format(const Circle &circle, format_context &context) const noexcept {
             const auto &[p, r] = circle;
             return format_to(context.out(), "Circle(position: {}, radius: {})", p, r);
         };

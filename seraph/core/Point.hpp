@@ -114,7 +114,7 @@ namespace std {
     template <>
     struct hash<Point> {
 
-        inline size_t operator()(const Point &point) const noexcept {
+        size_t operator()(const Point &point) const noexcept {
             auto hasher = SipHasher();
             hasher.write(point);
             return hasher.value();

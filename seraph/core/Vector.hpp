@@ -190,7 +190,7 @@ namespace std {
     template <>
     struct hash<Vector> {
 
-        inline size_t operator()(const Vector &vector) const noexcept {
+        size_t operator()(const Vector &vector) const noexcept {
             auto hasher = SipHasher();
             hasher.write(vector);
             return hasher.value();
@@ -204,7 +204,7 @@ namespace std {
             return context.begin();
         }
 
-        inline format_context::iterator format(const Vector &vector, format_context &context) const noexcept {
+        format_context::iterator format(const Vector &vector, format_context &context) const noexcept {
             const auto [dx, dy] = vector;
             return format_to(context.out(), "Vector(dx: {}, dy: {})", dx, dy);
         };

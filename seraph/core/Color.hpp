@@ -153,7 +153,7 @@ namespace std {
     template <>
     struct hash<Color> {
 
-        inline size_t operator()(const Color &color) const noexcept {
+        size_t operator()(const Color &color) const noexcept {
             auto hasher = SipHasher();
             hasher.write(color);
             return hasher.value();
@@ -167,7 +167,7 @@ namespace std {
             return context.begin();
         }
 
-        inline format_context::iterator format(const Color &color, format_context &context) const noexcept {
+        format_context::iterator format(const Color &color, format_context &context) const noexcept {
             const auto [r, g, b, a] = color;
             return format_to(context.out(), "Color(r: {}, g: {}, b: {}, a: {})", r, g, b, a);
         };
