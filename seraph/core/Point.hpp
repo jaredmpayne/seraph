@@ -80,6 +80,11 @@ public:
         return Point(magnitude * x(), magnitude * y());
     }
 
+    constexpr const Point &operator*=(float magnitude) noexcept {
+        *this = *this * magnitude;
+        return *this;
+    }
+
     constexpr Point operator+(const Point &other) const noexcept {
         return Point(x() + other.x(), y() + other.y());
     }
@@ -123,11 +128,15 @@ namespace std {
             return context.begin();
         }
 
-        inline format_context::iterator format(const Point &point, format_context &context) const noexcept {
+        format_context::iterator format(const Point &point, format_context &context) const noexcept {
             const auto [x, y] = point;
             return format_to(context.out(), "Point(x: {}, y: {})", x, y);
         };
     };
+
+    constexpr Point operator*(float magnitude, const Point &point) noexcept {
+        return point * magnitude;
+    }
 
     inline ostream &operator<<(ostream &stream, const Point &point) noexcept {
         return stream << format("{}", point);
