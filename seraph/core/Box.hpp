@@ -12,12 +12,15 @@ class Box {
 
 public:
 
+    /// Constructs a `Box` containing the given value.
     constexpr Box(const T &value) noexcept :
         m_value(std::make_unique<T>(value)) { }
 
+    /// Constructs a `Box` containing a copy of the given `Box`'s value.
     constexpr Box(const Box<T> &other) noexcept :
         Box(other.value()) { }
 
+    /// The contained value.
     constexpr const T &value() const noexcept {
         return *m_value;
     }
