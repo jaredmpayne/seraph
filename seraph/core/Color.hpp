@@ -71,7 +71,7 @@ public:
         return Color(255, 255, 255);
     }
 
-    /// A transparent shade, specifically black set to transparent, or `Color(0, 0, 0, 255)`.
+    /// A transparent shade, specifically black set to transparent, or `Color(0, 0, 0, 0)`.
     static constexpr Color transparent() noexcept {
         return Color(0, 0, 0, 0);
     }
@@ -81,6 +81,7 @@ public:
         return m_r;
     }
 
+    /// Sets the red component of the `Color`.
     void set_r(std::uint8_t r) noexcept {
         m_r = r;
     }
@@ -90,6 +91,7 @@ public:
         return m_g;
     }
 
+    /// Sets the green component of the `Color`.
     void set_g(std::uint8_t g) noexcept {
         m_g = g;
     }
@@ -99,6 +101,7 @@ public:
         return m_b;
     }
 
+    /// Sets the blue component of the `Color`.
     void set_b(std::uint8_t b) noexcept {
         m_b = b;
     }
@@ -108,6 +111,7 @@ public:
         return m_a;
     }
 
+    /// Sets the alpha component of the `Color`.
     void set_a(std::uint8_t a) noexcept {
         m_a = a;
     }
