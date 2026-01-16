@@ -5,8 +5,9 @@
 /// A container for storing copyable objects on the heap.
 ///
 /// This object is effectively a wrapper around an `std::unique_ptr` that
-/// creates a new copy of the underlying object with its own `std::unique_ptr`
-/// when copied.
+/// creates a new copy of the underlying object with a new `std::unique_ptr`
+/// that owns it when copied. When a `Box` is destroyed, its underlying
+/// `std::unique_ptr` and its owned object are destroyed as well.
 template <typename T>
 class Box {
 
