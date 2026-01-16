@@ -62,6 +62,7 @@ enable_testing()
 
 add_executable(
     seraph_tests
+    tests/core/ColorTests.cpp
     tests/core/PointTests.cpp
     tests/main.cpp
 )

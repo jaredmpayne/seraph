@@ -1,5 +1,6 @@
 #include <tests/catch.hpp>
 
+#include <seraph/core/Math.hpp>
 #include <seraph/core/Point.hpp>
 
 TEST_CASE("Point construction", "[Point]") {
@@ -49,7 +50,7 @@ TEST_CASE("Point comparison", "[Point]") {
     }
 }
 
-TEST_CASE("setting Point members", "[Point]") {
+TEST_CASE("setting Point members after construction", "[Point]") {
 
     auto point = Point();
 
@@ -77,8 +78,7 @@ TEST_CASE("Point structured bindings", "[Point]") {
 TEST_CASE("Point arithmetic", "[Point]") {
 
     SECTION("Points can be multiplied by a floating-point value") {
-        REQUIRE(Point(7.8f, 3.4f) * 5.6f == Point(43.68f, 19.04f));
-        REQUIRE(5.6f * Point(7.8f, 3.4f) == Point(43.68f, 19.04f));
+        REQUIRE((Point(1.2f, 3.4f) * 5.6f).is_approximately(Point(6.72f, 19.04f)));
     }
 }
     

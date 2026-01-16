@@ -6,6 +6,7 @@
 #include <numeric>
 #include <tuple>
 
+#include <seraph/core/Math.hpp>
 #include <seraph/core/Vector.hpp>
 #include <seraph/hash/SipHasher.hpp>
 
@@ -35,18 +36,22 @@ public:
         return Point();
     }
 
+    /// Returns the *x* coordinate of the `Point`.
     constexpr float x() const noexcept {
         return m_x;
     }
 
+    /// Sets the *x* coordinate of the `Point`.
     void set_x(float x) noexcept {
         m_x = x;
     }
 
+    /// Returns the *y* coordinate of the `Point`.
     constexpr float y() const noexcept {
         return m_y;
     }
 
+    /// Sets the *y* coordinate of the `Point`.
     void set_y(float y) noexcept {
         m_y = y;
     }
@@ -66,6 +71,11 @@ public:
         return Point(std::midpoint(x(), other.x()), std::midpoint(y(), other.y()));
     }
 
+    constexpr bool is_approximately(const Point &other, float tolerance = Math::epsilon()) const noexcept {
+        return Math::is_approximately(x(), other.x(), tolerance)
+            && Math::is_approximately(y(), other.y(), tolerance);
+    }
+
     template<std::size_t Index>
     constexpr const std::tuple_element_t<Index, Point> &get() const noexcept {
         if constexpr (Index == 0) {
@@ -74,23 +84,6 @@ public:
         if constexpr (Index == 1) {
             return m_y;
         }
-    }
-
-    constexpr Point operator*(float magnitude) const noexcept {
-        return Point(magnitude * x(), magnitude * y());
-    }
-
-    constexpr const Point &operator*=(float magnitude) noexcept {
-        *this = *this * magnitude;
-        return *this;
-    }
-
-    constexpr Point operator+(const Point &other) const noexcept {
-        return Point(x() + other.x(), y() + other.y());
-    }
-
-    constexpr Point operator+(const Vector &vector) const noexcept {
-        return *this + Point(vector.dx(), vector.dy());
     }
 
 private:
@@ -134,11 +127,59 @@ namespace std {
         };
     };
 
-    constexpr Point operator*(float magnitude, const Point &point) noexcept {
-        return point * magnitude;
-    }
-
     inline ostream &operator<<(ostream &stream, const Point &point) noexcept {
         return stream << format("{}", point);
     }
+}
+
+constexpr Point operator+(const Point &point, const Vector &vector) noexcept {
+    return Point(point.x() + vector.dx(), point.y() + vector.dy());
+}
+
+constexpr Point operator+(const Point &point, const Point &other) noexcept {
+    return point + Vector(other.x(), other.y());
+}
+
+constexpr Point operator+(const Point &point, float magnitude) noexcept {
+    return point + Point(magnitude, magnitude);
+}
+
+constexpr Point operator-(const Point &point) noexcept {
+    return Point(-point.x(), -point.y());
+}
+
+constexpr Point operator-(const Point &point, const Point &other) noexcept {
+    return Point(point.x() - other.x(), point.y() - other.y());
+}
+
+constexpr Point operator*(const Point &point, float magnitude) noexcept {
+    return Point(magnitude * point.x(), magnitude * point.y());
+}
+
+constexpr Point operator*(float magnitude, const Point &point) noexcept {
+    return point * magnitude;
+}
+
+constexpr Point operator/(const Point &point, float magnitude) noexcept {
+    return Point(point.x() / magnitude, point.y() / magnitude);
+}
+
+constexpr Point &operator+=(Point &point, const Point &other) noexcept {
+    point = point + other;
+    return point;
+}
+
+constexpr Point &operator-=(Point &point, const Point &other) noexcept {
+    point = point - other;
+    return point;
+}
+
+constexpr Point &operator*=(Point &point, float magnitude) noexcept {
+    point = point * magnitude;
+    return point;
+}
+
+constexpr Point &operator/=(Point &point, float magnitude) noexcept {
+    point = point / magnitude;
+    return point;
 }

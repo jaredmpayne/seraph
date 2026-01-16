@@ -4,6 +4,7 @@
 #include <iostream>
 #include <tuple>
 
+#include <seraph/core/Math.hpp>
 #include <seraph/hash/SipHasher.hpp>
 
 class Size {
@@ -38,6 +39,11 @@ public:
 
     void set_height(float height) noexcept {
         m_height = height;
+    }
+
+    constexpr bool is_approximately(const Size &other, float tolerance = Math::epsilon()) const noexcept {
+        return Math::is_approximately(width(), other.width(), tolerance)
+            && Math::is_approximately(height(), other.height(), tolerance);
     }
 
     template<std::size_t Index>

@@ -72,6 +72,11 @@ public:
         m_radius = radius;
     }
 
+    constexpr bool is_approximately(const Circle &other, float tolerance = Math::epsilon()) const noexcept {
+        return position().is_approximately(other.position(), tolerance)
+            && Math::is_approximately(radius(), other.radius(), tolerance);
+    }
+
     /// Calculates the diameter of the `Circle`.
     constexpr float diameter() const noexcept {
         return 2 * radius();

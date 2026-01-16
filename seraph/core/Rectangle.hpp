@@ -4,6 +4,7 @@
 #include <iostream>
 #include <tuple>
 
+#include <seraph/core/Math.hpp>
 #include <seraph/core/Point.hpp>
 #include <seraph/core/Size.hpp>
 #include <seraph/core/Vector.hpp>
@@ -207,6 +208,11 @@ public:
             return Vector(bl.x() - br.x(), bl.y() - br.y());
         }
         return Vector(min_x() - max_x(), 0.0f);
+    }
+
+    constexpr bool is_approximately(const Rectangle &other, float tolerance = Math::epsilon()) const noexcept {
+        return position().is_approximately(other.position(), tolerance)
+            && size().is_approximately(other.size(), tolerance);
     }
 
     template<std::size_t Index>
