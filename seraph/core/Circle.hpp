@@ -24,11 +24,14 @@ public:
     /// The objects are compared by `position` then `radius`.
     constexpr auto operator<=>(const Circle &) const noexcept = default;
 
-    /// Constructs a `Circle` with `radius` at `position`.
+    /// Constructs a `Circle` with at `positon` with given `radius`.
     constexpr Circle(const Point &position, float radius) noexcept :
         m_position(position),
         m_radius(radius) { }
 
+    /// Constructs a `Circle` with position *(x, y)* with given `radius`.
+    ///
+    /// An alais for `Circle(Position(x, y), radius)`.
     constexpr Circle(float x, float y, float radius) noexcept :
         Circle(Point(x, y), radius) { }
 

@@ -30,7 +30,7 @@ public:
 
     virtual std::shared_ptr<T> make(const std::filesystem::path &path) = 0;
 
-// private:
+private:
 
     std::unordered_map<std::filesystem::path, std::weak_ptr<T>> m_resources;
 };
