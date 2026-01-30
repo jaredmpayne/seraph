@@ -1,6 +1,5 @@
 #include <tests/catch.hpp>
 
-#include <seraph/core/Math.hpp>
 #include <seraph/core/Point.hpp>
 
 TEST_CASE("Point construction", "[Point]") {
@@ -34,12 +33,12 @@ TEST_CASE("static Points", "[Point]") {
 
 TEST_CASE("Point comparison", "[Point]") {
 
-    SECTION("Points can be checked for equality") {
+    SECTION("Points can be checked for exact equality") {
         REQUIRE(Point() == Point(0.0f, 0.0f));
         REQUIRE(Point(1.2f, 3.4f) == Point(1.2f, 3.4f));
     }
 
-    SECTION("Points can be checked for non-equality") {
+    SECTION("Points can be checked for exact non-equality") {
         REQUIRE(Point() != Point(1.2f, 3.4f));
         REQUIRE(Point(1.2f, 3.4f) != Point(3.4f, 1.2f));
     }

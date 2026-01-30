@@ -64,6 +64,7 @@ add_executable(
     seraph_tests
     tests/core/ColorTests.cpp
     tests/core/PointTests.cpp
+    tests/core/SizeTests.cpp
     tests/main.cpp
 )
 target_include_directories(
