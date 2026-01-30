@@ -3,6 +3,7 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <limits>
 
 /// A fast, cryptographically secure hasher.
 class SipHasher {
@@ -19,6 +20,8 @@ public:
         SipHasher(0, 0) { }
 
     /// Constructs a `SipHasher` with the given keys.
+    ///
+    /// @param k0, k1 The keys.
     constexpr SipHasher(std::uint64_t k0, std::uint64_t k1) noexcept :
         m_k0(k0),
         m_k1(k1) {
@@ -32,12 +35,17 @@ public:
     }
 
     /// Hash an array of bytes.
+    ///
+    /// @param bytes A pointer to the first byte in a contiguous span of memory.
+    /// @param count The number of bytes in the span.
     void write(const std::uint8_t *bytes, std::size_t count) noexcept;
 
     /// Hash an object as a sequence of bytes.
+    ///
+    /// @param object The object to be hashed.
     template <typename T>
     void write(const T &object) noexcept {
-        write ((std::uint8_t *)(&object), sizeof(T));
+        write((std::uint8_t *)(&object), sizeof(T));
     }
 
     /// Resets the `SipHasher` to its initial state.
@@ -53,11 +61,11 @@ private:
     void sip_round() noexcept;
 
     std::uint64_t rotate_left(std::uint64_t word, std::uint64_t count) noexcept {
-        return (word << count) | (word >> (64 - count));
+        return (word << count) | (word >> (std::numeric_limits<std::uint64_t>::digits - count));
     }
 
     std::uint64_t rotate_right(std::uint64_t word, std::uint64_t count) noexcept {
-        return (word >> count) | (word << (64 - count));
+        return (word >> count) | (word << (std::numeric_limits<std::uint64_t>::digits - count));
     }
 
     std::uint64_t m_k0;

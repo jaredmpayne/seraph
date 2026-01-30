@@ -2,7 +2,11 @@
 
 #include <chrono>
 
-/// The class that keeps time for the main game loop.
+/// A class that tracks the time since its object was constructed or last
+/// restarted.
+///
+/// This class was originally created to keep track of time for the main engine loop.
+/// It has been kept in the public library as a useful timekeeping tool.
 class Clock {
 
 public:
@@ -10,15 +14,24 @@ public:
     /// Constructs a `Clock` that takes note of the current time.
     constexpr Clock() noexcept = default;
 
+    /// Moves a `Clock` from another.
     constexpr Clock(Clock &&) noexcept = default;
 
+    /// Copies a `Clock` from another.
     constexpr Clock(const Clock &) noexcept = default;
 
+    /// Assigns a `Clock` from another.
     constexpr Clock &operator=(const Clock &) noexcept = default;
 
+    /// Compares two `Point` objects.
+    ///
+    /// The objects are effectively compared based on their last recorded time.
     constexpr auto operator<=>(const Clock &) const noexcept = default;
 
-    /// The time passed since the `Clock` was either constructed or last restarted.
+    /// The time passed since the `Clock` was either constructed or last
+    /// restarted.
+    ///
+    /// Effectively, the current time minus the previously recorded time.
     constexpr float time_elapsed() const noexcept {
         return std::chrono::duration<float>(std::chrono::steady_clock::now() - m_previous).count();
     }

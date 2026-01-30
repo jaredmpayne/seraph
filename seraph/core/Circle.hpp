@@ -5,24 +5,13 @@
 #include <seraph/core/Point.hpp>
 #include <seraph/hash/SipHasher.hpp>
 
-/// A primitive class comprised of a `Point` in space and a floating-point radius.
+/// A class comprised of a `Point` in space and a floating-point radius.
 class Circle {
 
 public:
 
-    /// Constructs a `Circle` with zeroed position and zero radius.
+    /// Constructs a `Circle` with a zeroed position and zero radius.
     constexpr Circle() noexcept = default;
-
-    constexpr Circle(Circle &&) noexcept = default;
-
-    constexpr Circle(const Circle &) noexcept = default;
-
-    constexpr Circle &operator=(const Circle &) noexcept = default;
-
-    /// Compares two `Circle` objects.
-    ///
-    /// The objects are compared by `position` then `radius`.
-    constexpr auto operator<=>(const Circle &) const noexcept = default;
 
     /// Constructs a `Circle` with at `positon` with given `radius`.
     constexpr Circle(const Point &position, float radius) noexcept :
@@ -31,12 +20,31 @@ public:
 
     /// Constructs a `Circle` with position *(x, y)* with given `radius`.
     ///
-    /// An alais for `Circle(Position(x, y), radius)`.
+    /// Effectively an alias for `Circle(Position(x, y), radius)`.
     constexpr Circle(float x, float y, float radius) noexcept :
         Circle(Point(x, y), radius) { }
 
+    /// Moves a `Circle` from another.
+    constexpr Circle(Circle &&) noexcept = default;
+
+    /// Copies a `Circle` from another.
+    constexpr Circle(const Circle &) noexcept = default;
+
+    /// Assigns a `Circle` from another.
+    constexpr Circle &operator=(const Circle &) noexcept = default;
+
+    /// Compares two `Circle` objects.
+    ///
+    /// The objects are effectively compared as tuples `(position(), radius())`.
+    constexpr auto operator<=>(const Circle &) const noexcept = default;
+
     /// The `Point` representing the center of the `Circle`.
     constexpr const Point &position() const noexcept {
+        return m_position;
+    }
+
+    /// @copydoc Circle::position() const
+    Point &position() noexcept {
         return m_position;
     }
 
@@ -45,27 +53,35 @@ public:
         m_position = position;
     }
 
-    /// An alias for `position().x()`.
+    /// Returns the `Circle`'s *x* coordinate.
+    ///
+    /// Effectively an alias for `position().x()`.
     constexpr float x() const noexcept {
         return position().x();
     }
 
-    /// An alias for `position().set_x()`.
+    /// Sets the `Circle`'s *x* coordinate.
+    ///
+    /// Effectively an alias for `position().set_x(x)`.
     void set_x(float x) noexcept {
-        m_position.set_x(x);
+        position().set_x(x);
     }
 
-    /// An alias for `position().y()`.
+    /// Returns the `Circle`'s *y* coordinate.
+    ///
+    /// Effectively an alias for `position().y()`.
     constexpr float y() const noexcept {
         return position().y();
     }
 
-    /// An alias for `position().set_y()`.
+    /// Sets the `Circle`'s *y* coordinate.
+    ///
+    /// Effectively an alias for `position().set_y(y)`.
     void set_y(float y) noexcept {
-        m_position.set_y(y);
+        position().set_y(y);
     }
 
-    /// Gets the radius of the `Circle`.
+    /// Returns the radius of the `Circle`.
     constexpr float radius() const noexcept {
         return m_radius;
     }
@@ -75,37 +91,42 @@ public:
         m_radius = radius;
     }
 
+    /// Tests the `Circle` for approximate equivalency with another.
+    ///
+    /// @param other The other `Circle`.
+    /// @param tolerance The smallest tolerable difference between values.
+    /// @return `true` if the values are equal within `tolerance`, otherwise `false`.
     constexpr bool is_approximately(const Circle &other, float tolerance = Math::epsilon()) const noexcept {
         return position().is_approximately(other.position(), tolerance)
             && Math::is_approximately(radius(), other.radius(), tolerance);
     }
 
-    /// Calculates the diameter of the `Circle`.
+    /// Returns the diameter of the `Circle`.
     constexpr float diameter() const noexcept {
         return 2 * radius();
     }
 
-    /// Calculates the area of the `Circle`.
+    /// Returns the area of the `Circle`.
     constexpr float area() const noexcept {
         return std::numbers::pi_v<float> * radius() * radius();
     }
 
-    /// Calculates the leftmost x-coordinate of the `Circle` in space.
+    /// Returns the leftmost *x* coordinate of the `Circle` in space.
     constexpr float min_x() const noexcept {
         return x() - radius();
     }
 
-    /// Calculates the rightmost x-coordinate of the `Circle` in space.
+    /// Returns the rightmost *x* coordinate of the `Circle` in space.
     constexpr float max_x() const noexcept {
         return x() + radius();
     }
 
-    /// Calculates the uppermost y-coordinate of the `Circle` in space.
+    /// Returns the uppermost *y* coordinate of the `Circle` in space.
     constexpr float min_y() const noexcept {
         return y() - radius();
     }
 
-    /// @brief Calculates the lowermost y-coordinate of the `Circle` in space.
+    /// Returns the lowermost *y* coordinate of the `Circle` in space.
     constexpr float max_y() const noexcept {
         return y() + radius();
     }

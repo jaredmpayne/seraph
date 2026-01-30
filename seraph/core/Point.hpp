@@ -10,7 +10,7 @@
 #include <seraph/core/Vector.hpp>
 #include <seraph/hash/SipHasher.hpp>
 
-/// Represents a 2-D point in space.
+/// Represents a two-dimensional point in space.
 class Point {
 
 public:
@@ -18,20 +18,28 @@ public:
     /// Constructs a `Point` centered at the origin.
     constexpr Point() noexcept = default;
 
-    constexpr Point(Point &&) noexcept = default;
-
-    constexpr Point(const Point &) noexcept = default;
-
-    constexpr Point &operator=(const Point &) noexcept = default;
-
-    constexpr auto operator<=>(const Point &) const noexcept = default;
-
     /// Constructs a `Point` with the given coordinates.
     constexpr Point(float x, float y) noexcept :
         m_x(x),
         m_y(y) { }
 
+    /// Moves a `Point` from another.
+    constexpr Point(Point &&) noexcept = default;
+
+    /// Copies a `Point` from another.
+    constexpr Point(const Point &) noexcept = default;
+
+    /// Assigns a `Point` from another.
+    constexpr Point &operator=(const Point &) noexcept = default;
+
+    /// Compares two `Point` objects.
+    ///
+    /// The objects are effectively compared as tuples `(x(), y())`.
+    constexpr auto operator<=>(const Point &) const noexcept = default;
+
     /// Returns a `Point` centered at the origin.
+    ///
+    /// Effectively an alias for `Point()`.
     static constexpr Point zero() noexcept {
         return Point();
     }
@@ -56,21 +64,26 @@ public:
         m_y = y;
     }
 
-    /// Calculates the angle in radians from this `Point` to another.
+    /// Returns the angle in radians from this `Point` to another.
     constexpr float angle(const Point &other) const noexcept {
         return std::atan2(y() - other.y(), x() - other.x());
     }
 
-    /// Calculates the distance from this `Point` to another.
+    /// Returns the distance from this `Point` to another.
     constexpr float distance(const Point &other) const noexcept {
         return std::hypot(other.x() - x(), other.y() - y());
     }
 
-    /// Calculates the midpoint between this `Point` and another.
+    /// Returns the midpoint between this `Point` and another.
     constexpr Point midpoint(const Point &other) const noexcept {
         return Point(std::midpoint(x(), other.x()), std::midpoint(y(), other.y()));
     }
 
+    /// Tests the `Point` for approximate equivalency with another.
+    ///
+    /// @param other The other `Point`.
+    /// @param tolerance The smallest tolerable difference between values.
+    /// @return `true` if the values are equal within `tolerance`, otherwise `false`.
     constexpr bool is_approximately(const Point &other, float tolerance = Math::epsilon()) const noexcept {
         return Math::is_approximately(x(), other.x(), tolerance)
             && Math::is_approximately(y(), other.y(), tolerance);

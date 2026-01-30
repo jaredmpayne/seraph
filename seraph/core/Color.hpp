@@ -16,20 +16,26 @@ public:
     /// Effectively equal to `Color::black()` which is `Color(0, 0, 0, 255)`.
     constexpr Color() noexcept = default;
 
-    constexpr Color(Color &&) noexcept = default;
-
-    constexpr Color(const Color &) noexcept = default;
-
-    constexpr Color &operator=(const Color &) noexcept = default;
-
-    constexpr auto operator<=>(const Color &other) const noexcept = default;
-
     /// Constructs a `Color` of the given hue and alpha values.
     constexpr Color(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a = 255) noexcept :
         m_r(r),
         m_g(g),
         m_b(b),
         m_a(a) { }
+
+    /// Moves a `Color` from another.
+    constexpr Color(Color &&) noexcept = default;
+
+    /// Copies a `Color` from another.
+    constexpr Color(const Color &) noexcept = default;
+
+    /// Assigns a `Color` from another.
+    constexpr Color &operator=(const Color &) noexcept = default;
+
+    /// Compares two `Color` objects.
+    ///
+    /// The objects are effectively compared as tuples `(r(), g(), b(), a())`.
+    constexpr auto operator<=>(const Color &other) const noexcept = default;
 
     /// The color black, or `Color(0, 0, 0, 255)`.
     static constexpr Color black() noexcept {

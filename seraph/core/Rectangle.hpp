@@ -18,74 +18,129 @@ public:
     /// Constructs a `Rectangle` of zero width and height centered at the origin.
     constexpr Rectangle() noexcept = default;
 
-    constexpr Rectangle(Rectangle &&) noexcept = default;
-
-    constexpr Rectangle(const Rectangle &) noexcept = default;
-
-    constexpr Rectangle &operator=(const Rectangle &) noexcept = default;
-
-    constexpr auto operator<=>(const Rectangle &) const noexcept = default;
-
     /// Constructs a `Rectangle` of the given position and size.
     constexpr Rectangle(const Point &position, const Size &size) noexcept :
         m_position(position),
         m_size(size) { }
-
+    
+    /// Constructs a `Rectangle` at position *(x, y)* of the given width and
+    /// height.
+    ///
+    /// Effectively an alias for `Rectangle(Point(x, y), Size(width, height))`.
     constexpr Rectangle(float x, float y, float width, float height) noexcept :
         Rectangle(Point(x, y), Size(width, height)) { }
 
+    /// Moves a `Point` from another.
+    constexpr Rectangle(Rectangle &&) noexcept = default;
+
+    /// Copies a `Point` from another.
+    constexpr Rectangle(const Rectangle &) noexcept = default;
+
+    /// Assigns a `Point` from another.
+    constexpr Rectangle &operator=(const Rectangle &) noexcept = default;
+
+    /// Compares two `Point` objects.
+    ///
+    /// The objects are effectively compared as tuples `(position(), size())`.
+    constexpr auto operator<=>(const Rectangle &) const noexcept = default;
+
+    /// Constructs and returns a `Rectangle` of the given size whose top left
+    /// corner is at the given point.
     constexpr static Rectangle from_top_left_corner(const Point &point, const Size &size) noexcept {
         return from_top_left_corner(point.x(), point.y(), size.width(), size.height());
     }
 
+    /// Constructs and returns a `Rectangle` of the given width and height
+    /// whose top left corner is at the given *x* and *y* coordinates.
+    ///
+    /// Effectively an alias for `Rectangle::from_top_left_corner(Point(
+    /// x + 0.5f * width, y + 0.5f * height), Size(width, height))`.
     constexpr static Rectangle from_top_left_corner(float x, float y, float width, float height) noexcept {
         return Rectangle(Point(x + 0.5f * width, y + 0.5f - height), Size(width, height));
     }
 
+    /// Returns the position of the `Rectangle`.
     constexpr const Point &position() const noexcept {
         return m_position;
     }
 
+    /// @copydoc Rectangle::position() const
+    Point &position() noexcept {
+        return m_position;
+    }
+
+    /// Sets the position of the `Rectangle`.
     void set_position(const Point &position) noexcept {
         m_position = position;
     }
 
-    constexpr const Size &size() const noexcept {
-        return m_size;
-    }
-
-    void set_size(const Size &size) noexcept {
-        m_size = size;
-    }
-
+    /// Returns the *x* coordinate of the `Rectangle`.
+    ///
+    /// Effectively an alias for `position().x()`.
     constexpr float x() const noexcept {
         return position().x();
     }
 
+    /// Sets the *x* coordinate of the `Rectangle`.
+    ///
+    /// Effectively an alias for `position().set_x(x)`.
     void set_x(float x) noexcept {
-        m_position.set_x(x);
+        position().set_x(x);
     }
 
+    /// Returns the *y* coordinate of the `Rectangle`.
+    ///
+    /// Effectively an alias for `position().y()`.
     constexpr float y() const noexcept {
         return position().y();
     }
 
+    /// Sets the *y* coordinate of the `Rectangle`.
+    ///
+    /// Effectively an alias for `position().set_y(y)`.
     void set_y(float y) noexcept {
-        m_position.set_y(y);
+        position().set_y(y);
     }
 
+    /// Returns the size of the `Rectangle`.
+    constexpr const Size &size() const noexcept {
+        return m_size;
+    }
+
+    /// @copydoc Rectangle::size() const
+    Size &size() noexcept {
+        return m_size;
+    }
+
+    /// Sets the size of the `Rectangle`.
+    void set_size(const Size &size) noexcept {
+        m_size = size;
+    }
+
+    /// Returns the width of the `Rectangle`.
+    ///
+    /// Effectively an alias for `size().width()`.
     constexpr float width() const noexcept {
         return size().width();
     }
 
+    /// Sets the width of the `Rectangle`.
+    ///
+    /// Effectively an alias for `size().set_width(width)`.
     void set_width(float width) noexcept {
-        m_size.set_width(width);
+        size().set_width(width);
     }
 
+    /// Returns the height of the `Rectangle`.
+    ///
+    /// Effectively an alias for `size().height()`.
     constexpr float height() const noexcept {
         return size().height();
     }
 
+    /// Sets the height of the `Rectangle`.
+    ///
+    /// Effectively an alias for `size().set_height(height)`.
     void set_height(float height) noexcept {
         m_size.set_height(height);
     }
@@ -210,6 +265,11 @@ public:
         return Vector(min_x() - max_x(), 0.0f);
     }
 
+    /// Tests the `Rectangle` for approximate equivalency with another.
+    ///
+    /// @param other The other `Rectangle`.
+    /// @param tolerance The smallest tolerable difference between values.
+    /// @return `true` if the values are equal within `tolerance`, otherwise `false`.
     constexpr bool is_approximately(const Rectangle &other, float tolerance = Math::epsilon()) const noexcept {
         return position().is_approximately(other.position(), tolerance)
             && size().is_approximately(other.size(), tolerance);

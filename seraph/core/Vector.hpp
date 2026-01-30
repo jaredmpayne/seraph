@@ -7,7 +7,7 @@
 #include <seraph/core/Math.hpp>
 #include <seraph/hash/SipHasher.hpp>
 
-/// Represents a magnitude in 2-D space.
+/// Represents a magnitude in two-dimensional space.
 class Vector {
 
 public:
@@ -15,22 +15,28 @@ public:
     /// Constructs a `Vector` of zero magnitude.
     constexpr Vector() noexcept = default;
 
-    constexpr Vector(Vector &&) noexcept = default;
-
-    constexpr Vector(const Vector &) noexcept = default;
-
-    constexpr Vector &operator=(const Vector &) noexcept = default;
-
-    constexpr auto operator<=>(const Vector &) const noexcept = default;
-
     /// Constructs a `Vector` with the given *dx* and *dy* magnitudes.
     constexpr Vector(float dx, float dy) noexcept :
         m_dx(dx),
         m_dy(dy) { }
 
+    /// Moves a `Vector` from another.
+    constexpr Vector(Vector &&) noexcept = default;
+
+    /// Copies a `Vector` from another.
+    constexpr Vector(const Vector &) noexcept = default;
+
+    /// Assigns a `Vector` from another.
+    constexpr Vector &operator=(const Vector &) noexcept = default;
+
+    /// Compares two `Vector` objects.
+    ///
+    /// The objects are effectively compared as tuples `(dx(), dy())`.
+    constexpr auto operator<=>(const Vector &) const noexcept = default;
+
     /// Returns a `Vector` of zero magnitude.
     ///
-    /// Specifically, the `Vector` is of value *(0.0, 0.0)*.
+    /// Effectively an alias for `Vector()`.
     static constexpr Vector zero() noexcept {
         return Vector(0.0f, 0.0f);
     }
@@ -90,11 +96,6 @@ public:
         m_dy = dy;
     }
 
-    constexpr bool is_approximately(const Vector &other, float tolerance = Math::epsilon()) const noexcept {
-        return Math::is_approximately(dx(), other.dx(), tolerance)  
-            && Math::is_approximately(dy(), other.dy(), tolerance);
-    }
-
     /// Returns the Euclidean magnitude of the `Vector`.
     constexpr float magnitude() const noexcept {
         return std::hypot(dx(), dy());
@@ -116,8 +117,22 @@ public:
         return Vector(dx() / m, dy() / m);
     }
 
+    /// Returns the dot product of this `Vector` with another.
+    ///
+    /// @param other The other `Vector`.
+    /// @return The dot product.
     constexpr float dot_product(const Vector &other) const noexcept {
         return dx() * other.dx() + dy() * other.dy();
+    }
+
+    /// Tests the `Vector` for approximate equivalency with another.
+    ///
+    /// @param other The other `Vector`.
+    /// @param tolerance The smallest tolerable difference between values.
+    /// @return `true` if the values are equal within `tolerance`, otherwise `false`.
+    constexpr bool is_approximately(const Vector &other, float tolerance = Math::epsilon()) const noexcept {
+        return Math::is_approximately(dx(), other.dx(), tolerance)  
+            && Math::is_approximately(dy(), other.dy(), tolerance);
     }
 
     template <typename std::size_t Index>

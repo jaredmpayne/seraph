@@ -13,47 +13,55 @@ class Input {
 
 public:
 
-    /// The program's shared `Input` object. Creating another is not typically necesary.
+    /// The program's shared `Input` object.
     constexpr static Input &shared() noexcept {
         static auto instance = Input();
         return instance;
     }
 
+    /// Returns a boolean indicating if any key is pressed or held this frame.
     constexpr bool any_key() const noexcept {
         return !m_key.empty();
     }
 
+    /// Returns a boolean indicating if any key is pressed this frame.
     constexpr bool any_key_down() const noexcept {
         return !m_key_down.empty();
     }
 
-    /// Returns a boolean indicating if the given key was pressed or held down this frame.
+    /// Returns a boolean indicating if the given key is pressed or held this frame.
     constexpr bool key(KeyCode key_code) const noexcept {
         return m_key.contains(key_code);
     }
 
-    /// Returns a boolean indicating if the given key was released up this frame.
+    /// Returns a boolean indicating if the given key is released this frame.
     constexpr bool key_up(KeyCode key_code) const noexcept {
         return m_key_up.contains(key_code);
     }
 
-    /// Returns a boolean indicating if the given key was pressed down this frame.
+    /// Returns a boolean indicating if the given key is pressed this frame.
     constexpr bool key_down(KeyCode key_code) const noexcept {
         return m_key_down.contains(key_code);
     }
 
+    /// Returns a boolean indicating if the given mouse button is pressed or
+    /// held this frame.
     constexpr bool mouse(MouseCode mouse_code) const noexcept {
         return m_mouse.contains(mouse_code);
     }
 
+    /// Returns a boolean indicating if the given mouse button is released
+    /// this frame.
     constexpr bool mouse_up(MouseCode mouse_code) const noexcept {
         return m_mouse_up.contains(mouse_code);
     }
 
+    /// Returns a boolean indicating if the given mouse button is pressed this frame.
     constexpr bool mouse_down(MouseCode mouse_code) const noexcept {
         return m_mouse_down.contains(mouse_code);
     }
 
+    /// Returns the mouse cursor's position.
     constexpr const Point &mouse_position() const noexcept {
         return m_mouse_position;
     } 

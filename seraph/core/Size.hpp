@@ -5,42 +5,60 @@
 #include <tuple>
 
 #include <seraph/core/Math.hpp>
+#include <seraph/core/Vector.hpp>
 #include <seraph/hash/SipHasher.hpp>
 
 class Size {
 
 public:
 
+    /// Constructs a `Size` of zero width and height.
     constexpr Size() noexcept = default;
 
-    constexpr Size(Size &&) noexcept = default;
-
-    constexpr Size(const Size &) noexcept = default;
-
-    constexpr Size &operator=(const Size &) = default;
-
-    constexpr auto operator<=>(const Size &other) const noexcept = default;
-
+    /// Constructs a `Size` with the given width and height.
     constexpr Size(float width, float height) noexcept :
         m_width(width),
         m_height(height) { }
 
+    /// Moves a `Size` from another.
+    constexpr Size(Size &&) noexcept = default;
+
+    /// Copies a `Size` from another.
+    constexpr Size(const Size &) noexcept = default;
+
+    /// Assigns a `Size` from another.
+    constexpr Size &operator=(const Size &) noexcept = default;
+
+    /// Compares two `Size` objects.
+    ///
+    /// The objects are effectively compared as tuples `(width(), height())`.
+    constexpr auto operator<=>(const Size &other) const noexcept = default;
+
+    /// Returns the width of the `Size`.
     constexpr float width() const noexcept {
         return m_width;
     }
 
+    /// Sets the width of the `Size`.
     void set_width(float width) noexcept {
         m_width = width;
     }
 
+    /// Returns the height of the `Size`.
     constexpr float height() const noexcept {
         return m_height;
     }
 
+    /// Sets the height of the `Size`.
     void set_height(float height) noexcept {
         m_height = height;
     }
 
+    /// Tests the `Size` for approximate equivalency with another.
+    ///
+    /// @param other The other `Size`.
+    /// @param tolerance The smallest tolerable difference between values.
+    /// @return `true` if the values are equal within `tolerance`, otherwise `false`.
     constexpr bool is_approximately(const Size &other, float tolerance = Math::epsilon()) const noexcept {
         return Math::is_approximately(width(), other.width(), tolerance)
             && Math::is_approximately(height(), other.height(), tolerance);
@@ -100,4 +118,56 @@ namespace std {
     inline ostream &operator<<(ostream &stream, const Size &size) noexcept {
         return stream << format("{}", size);
     }
+}
+
+constexpr Size operator+(const Size &size, const Vector &vector) noexcept {
+    return Size(size.width() + vector.dx(), size.height() + vector.dy());
+}
+
+constexpr Size operator+(const Size &size, const Size &other) noexcept {
+    return size + Vector(other.width(), other.height());
+}
+
+constexpr Size operator+(const Size &size, float magnitude) noexcept {
+    return size + Size(magnitude, magnitude);
+}
+
+constexpr Size operator-(const Size &size) noexcept {
+    return Size(-size.width(), -size.height());
+}
+
+constexpr Size operator-(const Size &size, const Size &other) noexcept {
+    return Size(size.width() - other.width(), size.height() - other.height());
+}
+
+constexpr Size operator*(const Size &size, float magnitude) noexcept {
+    return Size(magnitude * size.width(), magnitude * size.height());
+}
+
+constexpr Size operator*(float magnitude, const Size &size) noexcept {
+    return size * magnitude;
+}
+
+constexpr Size operator/(const Size &size, float magnitude) noexcept {
+    return Size(size.width() / magnitude, size.height() / magnitude);
+}
+
+constexpr Size &operator+=(Size &size, const Size &other) noexcept {
+    size = size + other;
+    return size;
+}
+
+constexpr Size &operator-=(Size &size, const Size &other) noexcept {
+    size = size - other;
+    return size;
+}
+
+constexpr Size &operator*=(Size &size, float magnitude) noexcept {
+    size = size * magnitude;
+    return size;
+}
+
+constexpr Size &operator/=(Size &size, float magnitude) noexcept {
+    size = size / magnitude;
+    return size;
 }
