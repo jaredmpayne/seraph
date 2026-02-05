@@ -3,6 +3,7 @@
 #include <array>
 #include <iostream>
 #include <tuple>
+#include <utility>
 
 #include <seraph/core/Math.hpp>
 #include <seraph/core/Point.hpp>
@@ -283,6 +284,7 @@ public:
         if constexpr (Index == 1) {
             return size();
         }
+        std::unreachable();
     }
 
 private:

@@ -97,6 +97,7 @@ public:
         if constexpr (Index == 1) {
             return m_y;
         }
+        std::unreachable();
     }
 
 private:

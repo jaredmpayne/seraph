@@ -139,6 +139,7 @@ public:
         if constexpr (Index == 1) {
             return radius();
         }
+        std::unreachable();
     }
 
 private:

@@ -4,6 +4,7 @@
 #include <format>
 #include <iostream>
 #include <tuple>
+#include <utility>
 
 #include <seraph/hash/SipHasher.hpp>
 
@@ -13,7 +14,7 @@ public:
 
     /// Constructs the default `Color` of black.
     ///
-    /// Effectively equal to `Color::black()` which is `Color(0, 0, 0, 255)`.
+    /// Effectively equal to `Color(0, 0, 0, 255)` or `Color::black()`.
     constexpr Color() noexcept = default;
 
     /// Constructs a `Color` of the given hue and alpha values.
@@ -136,6 +137,7 @@ public:
         if constexpr (Index == 3) {
             return a();
         }
+        std::unreachable();
     }
 
 private:

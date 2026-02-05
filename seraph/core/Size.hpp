@@ -3,6 +3,7 @@
 #include <format>
 #include <iostream>
 #include <tuple>
+#include <utility>
 
 #include <seraph/core/Math.hpp>
 #include <seraph/core/Vector.hpp>
@@ -72,6 +73,7 @@ public:
         if constexpr (Index == 1) {
             return m_height;
         }
+        std::unreachable();
     }
 
 private:

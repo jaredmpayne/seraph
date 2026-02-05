@@ -3,6 +3,7 @@
 #include <format>
 #include <iostream>
 #include <tuple>
+#include <utility>
 
 #include <seraph/core/Math.hpp>
 #include <seraph/hash/SipHasher.hpp>
@@ -143,6 +144,7 @@ public:
         if constexpr (Index == 1) {
             return m_dy;
         }
+        std::unreachable();
     }
 
 private:
