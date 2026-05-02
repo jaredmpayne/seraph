@@ -94,15 +94,15 @@ void Game::fixed_update(const std::shared_ptr<Node> &node) {
 
 void Game::render() {
     m_window.clear(m_scene->background_color());
-    draw(m_scene);
+    draw(m_scene.get());
     m_window.display();
 }
 
-void Game::draw(const std::shared_ptr<Node> &node) {
+void Game::draw(Node *node) {
     if (!node->is_hidden()) {
         node->draw(m_window);
         for (const auto &child : node->children()) {
-            draw(child);
+            draw(child.get());
         }
     }
 }

@@ -45,7 +45,7 @@ private:
 
     void render();
 
-    void draw(const std::shared_ptr<Node> &node);
+    void draw(Node *node);
 
     Window m_window;
 
