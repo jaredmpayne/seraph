@@ -20,8 +20,6 @@ add_library(
     seraph/core/Game.cpp
     seraph/core/Window.cpp
 
-    seraph/hash/SipHasher.cpp
-
     seraph/node/LabelNode.cpp
     seraph/node/MusicNode.cpp
     seraph/node/Node.cpp

@@ -38,7 +38,16 @@ public:
     ///
     /// @param bytes A pointer to the first byte in a contiguous span of memory.
     /// @param count The number of bytes in the span.
-    void write(const std::uint8_t *bytes, std::size_t count) noexcept;
+    void write(const std::uint8_t *bytes, std::size_t count) noexcept {
+        const auto words = std::size_t(std::ceil(count / 8));
+        for (std::size_t i = 0; i < words; i += 8) {
+            m_v3 ^= *(std::uint64_t *)(bytes + i);
+            sip_round();
+            sip_round();
+            m_v0 ^= *(std::uint64_t *)(bytes + i);
+        }
+        m_v2 ^= 0xff;
+    }
 
     /// Hash an object as a sequence of bytes.
     ///
@@ -58,7 +67,25 @@ public:
 
 private:
 
-    void sip_round() noexcept;
+    void sip_round() noexcept {
+        m_v0 += m_v1;
+        m_v1 = rotate_left(m_v1, 13);
+        m_v1 ^= m_v0;
+        m_v0 = rotate_left(m_v0, 32);
+
+        m_v2 += m_v3;
+        m_v3 = rotate_left(m_v3, 16);
+        m_v3 ^= m_v2;
+
+        m_v0 += m_v3;
+        m_v3 = rotate_left(m_v3, 21);
+        m_v3 ^= m_v0;
+
+        m_v2 += m_v1;
+        m_v1 = rotate_left(m_v1, 17);
+        m_v1 ^= m_v2;
+        m_v2 = rotate_left(m_v2, 32);
+    }
 
     std::uint64_t rotate_left(std::uint64_t word, std::uint64_t count) noexcept {
         return (word << count) | (word >> (std::numeric_limits<std::uint64_t>::digits - count));
