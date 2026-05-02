@@ -146,16 +146,24 @@ namespace std {
     }
 }
 
-constexpr Point operator+(const Point &point, const Vector &vector) noexcept {
-    return Point(point.x() + vector.dx(), point.y() + vector.dy());
+constexpr Point operator+(const Point &point, const Point &other) noexcept {
+    return Point(point.x() + other.x(), point.y() + other.y());
 }
 
-constexpr Point operator+(const Point &point, const Point &other) noexcept {
-    return point + Vector(other.x(), other.y());
+constexpr Point operator+(const Point &point, const Vector &vector) noexcept {
+    return point + Point(vector.dx(), vector.dy());
+}
+
+constexpr Point operator+(const Vector &vector, const Point &point) noexcept {
+    return Point(vector.dx(), vector.dy()) + point;
 }
 
 constexpr Point operator+(const Point &point, float magnitude) noexcept {
     return point + Point(magnitude, magnitude);
+}
+
+constexpr Point operator+(float magnitude, const Point &point) noexcept {
+    return Point(magnitude, magnitude) + point;
 }
 
 constexpr Point operator-(const Point &point) noexcept {
@@ -166,16 +174,48 @@ constexpr Point operator-(const Point &point, const Point &other) noexcept {
     return Point(point.x() - other.x(), point.y() - other.y());
 }
 
+constexpr Point operator-(const Point &point, const Vector &vector) noexcept {
+    return point - Point(vector.dx(), vector.dy());
+}
+
+constexpr Point operator-(const Point &point, float magnitude) noexcept {
+    return point - Point(magnitude, magnitude);
+}
+
+constexpr Point operator-(float magnitude, const Point &point) noexcept {
+    return Point(magnitude, magnitude) - point;
+}
+
+constexpr Point operator*(const Point &point, const Point &other) noexcept {
+    return Point(point.x() * other.x(), point.y() * other.y());
+}
+
+constexpr Point operator*(const Point &point, const Vector &vector) noexcept {
+    return point * Point(vector.dx(), vector.dy());
+}
+
 constexpr Point operator*(const Point &point, float magnitude) noexcept {
-    return Point(magnitude * point.x(), magnitude * point.y());
+    return point * Point(magnitude, magnitude);
 }
 
 constexpr Point operator*(float magnitude, const Point &point) noexcept {
-    return point * magnitude;
+    return Point(magnitude, magnitude) * point;
+}
+
+constexpr Point operator/(const Point &point, const Point &other) noexcept {
+    return Point(point.x() / other.x(), point.y() / other.y());
+}
+
+constexpr Point operator/(const Point &point, const Vector &vector) noexcept {
+    return point / Point(vector.dx(), vector.dy());
 }
 
 constexpr Point operator/(const Point &point, float magnitude) noexcept {
-    return Point(point.x() / magnitude, point.y() / magnitude);
+    return point / Point(magnitude, magnitude);
+}
+
+constexpr Point operator/(float magnitude, const Point &point) noexcept {
+    return Point(magnitude, magnitude) / point;
 }
 
 constexpr Point &operator+=(Point &point, const Point &other) noexcept {
