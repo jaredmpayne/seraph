@@ -44,6 +44,14 @@ public:
 
     float absolute_rotation() const noexcept;
 
+    constexpr float z_position() const noexcept {
+        return m_z_position;
+    }
+
+    void set_z_position(float z_position) noexcept {
+        m_z_position = z_position;
+    }
+
     constexpr const Vector &scale() const noexcept {
         return m_scale;
     }
@@ -193,6 +201,8 @@ private:
     Vector m_scale = Vector::one();
 
     float m_rotation;
+
+    float m_z_position;
 
     float m_alpha = 1.0f;
 
