@@ -5,6 +5,7 @@
 
 #include <SFML/Audio.hpp>
 
+#include <seraph/core/Exception.hpp>
 #include <seraph/core/Point.hpp>
 #include <seraph/node/Node.hpp>
 
@@ -13,9 +14,16 @@ class MusicNode : public Node {
 
 public:
 
-    MusicNode(const std::filesystem::path &path);
+    MusicNode(const std::filesystem::path &path) {
+        if (!m_music.openFromFile(path)) {
+            throw Exception(std::format("Unable to create MusicNode from file at path {}", path.string()));
+        }
+    }
 
-    virtual void set_position(const Point &position) override;
+    virtual void set_position(const Point &position) override {
+        Node::set_position(position);
+        m_music.setPosition(sf::Vector3f(position.x(), position.y(), 0.0f));
+    }
 
     bool is_positional() const {
         return m_music.isSpatializationEnabled();

@@ -14,7 +14,15 @@ class ShapeNode : public Node {
 
 public:
 
-    ShapeNode(float radius, unsigned int sides_count);
+    ShapeNode(float radius, unsigned int sides_count) :
+        m_shape(radius, sides_count) {
+
+        m_shape.setOrigin(sf::Vector2f(radius, radius));
+        const auto [fr, fg, fb, fa] = m_shape.getFillColor();
+        const auto [sr, sg, sb, sa] = m_shape.getOutlineColor();
+        m_fill_color = Color(fr, fg, fb, fa);
+        m_stroke_color = Color(sr, sg, sb, sa);
+    }
 
     virtual ~ShapeNode() override = default;
 
@@ -41,7 +49,8 @@ public:
 
     void set_fill_color(const Color &fill_color) {
         m_fill_color = fill_color;
-        m_shape.setFillColor(sf::Color(fill_color.r(), fill_color.g(), fill_color.b(), fill_color.a()));
+        const auto [r, g, b, a] = fill_color;
+        m_shape.setFillColor(sf::Color(r, g, b, a));
     }
 
     constexpr float stroke() const {
@@ -62,9 +71,22 @@ public:
         m_shape.setOutlineColor(sf::Color(r, g, b, a));
     }
 
-    virtual Rectangle frame() const override;
+    virtual Rectangle frame() const override {
+        const auto bounds = m_shape.getGlobalBounds();
+        const auto [x, y] = bounds.position;
+        const auto [width, height] = bounds.size;
+        return Rectangle(x, y, width, height);
+    }
 
-    virtual void draw(Window &window) override;
+    virtual void draw(Window &window) override {
+        const auto [x, y] = absolute_position();
+        const auto rotation = absolute_rotation();
+        const auto [dx, dy] = absolute_scale();
+        m_shape.setPosition(sf::Vector2f(x, y));
+        m_shape.setRotation(sf::radians(rotation));
+        m_shape.setScale(sf::Vector2f(dx, dy));
+        window.render_window().draw(m_shape);
+    }
 
 private:
 

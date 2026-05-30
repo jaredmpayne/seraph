@@ -16,17 +16,12 @@ add_library(
     seraph/action/ScaleAction.cpp
     seraph/action/SequenceAction.cpp
     seraph/action/WaitAction.cpp
-    
+
     seraph/core/Game.cpp
     seraph/core/Window.cpp
 
-    seraph/node/LabelNode.cpp
-    seraph/node/MusicNode.cpp
     seraph/node/Node.cpp
     seraph/node/Scene.cpp
-    seraph/node/ShapeNode.cpp
-    seraph/node/SoundNode.cpp
-    seraph/node/SpriteNode.cpp
 
     seraph/physics/PhysicsWorld.cpp
     seraph/physics/RectanglePhysicsBody.cpp

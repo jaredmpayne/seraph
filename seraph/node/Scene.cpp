@@ -15,7 +15,3 @@ std::shared_ptr<Scene> Node::scene() {
     }
     return nullptr;
 }
-
-Rectangle Scene::frame() const {
-    return Rectangle(position(), Size(1.0f, 1.0f));
-}

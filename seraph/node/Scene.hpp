@@ -40,7 +40,9 @@ public:
         m_physics_world = physics_world;
     }
 
-    virtual Rectangle frame() const override;
+    virtual Rectangle frame() const override {
+        return Rectangle(position(), Size(1.0f, 1.0f));
+    }
 
 private:
 

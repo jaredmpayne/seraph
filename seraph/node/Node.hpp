@@ -30,9 +30,16 @@ public:
         return m_position;
     }
 
-    virtual void set_position(const Point &position);
+    virtual void set_position(const Point &position) {
+        m_position = position;
+    }
 
-    Point absolute_position() const noexcept;
+    Point absolute_position() const noexcept {
+        if (const auto p = parent()) {
+            return p->absolute_position() + position();
+        }
+        return position();
+    }
 
     constexpr float rotation() const noexcept {
         return m_rotation;
@@ -42,7 +49,12 @@ public:
         m_rotation = rotation;
     }
 
-    float absolute_rotation() const noexcept;
+    float absolute_rotation() const noexcept {
+        if (const auto p = parent()) {
+            return p->absolute_rotation() + rotation();
+        }
+        return rotation();
+    }
 
     constexpr float z_position() const noexcept {
         return m_z_position;
@@ -60,7 +72,12 @@ public:
         m_scale = scale;
     }
 
-    Vector absolute_scale() const noexcept;
+    Vector absolute_scale() const noexcept {
+        if (const auto p = parent()) {
+            return p->absolute_scale() * scale();
+        }
+        return scale();
+    }
 
     constexpr float alpha() const noexcept {
         return m_alpha;
@@ -70,7 +87,12 @@ public:
         m_alpha = std::clamp(0.0f, 1.0f, alpha);
     }
 
-    float absolute_alpha() const noexcept;
+    float absolute_alpha() const noexcept {
+        if (const auto p = parent()) {
+            return p->absolute_alpha() * alpha();
+        }
+        return alpha();
+    }
 
     constexpr bool is_hidden() const noexcept {
         return m_is_hidden;
@@ -102,11 +124,32 @@ public:
         return !children().empty();
     }
 
-    bool has_ancestor(const std::shared_ptr<Node> &node) const noexcept;
+    bool has_ancestor(const std::shared_ptr<Node> &node) const noexcept {
+        for (auto ancestor = parent(); ancestor; ancestor = ancestor->parent()) {
+            if (ancestor == node) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    std::shared_ptr<Node> add_child(const std::shared_ptr<Node> &node);
+    std::shared_ptr<Node> add_child(const std::shared_ptr<Node> &node) {
+        if (!node->parent() && !has_ancestor(node)) {
+            node->set_parent(shared_from_this());
+            m_children.push_back(node);
+            return node;
+        }
+        return nullptr;
+    }
 
-    std::shared_ptr<Node> remove_child(const std::shared_ptr<Node> &node);
+    std::shared_ptr<Node> remove_child(const std::shared_ptr<Node> &node) {
+        if (node->parent() == shared_from_this()) {
+            m_children.erase(std::find(m_children.begin(), m_children.end(), node));
+            node->set_parent(nullptr);
+            return node;
+        }
+        return nullptr;
+    }
 
     // NOTE: Defined in Scene.cpp
     std::shared_ptr<Scene> scene();
@@ -117,7 +160,15 @@ public:
         return m_physics_body;
     }
 
-    void set_physics_body(const std::shared_ptr<PhysicsBody> &physics_body);
+    void set_physics_body(const std::shared_ptr<PhysicsBody> &physics_body) {
+        if (m_physics_body) {
+            m_physics_body->set_node(nullptr);
+        }
+        if (physics_body) {
+            physics_body->set_node(shared_from_this());
+        }
+        m_physics_body = physics_body;
+    }
 
 // SECTION: Actions
 
@@ -155,7 +206,9 @@ public:
 
 // SECTION: Virtual Methods
 
-    virtual Rectangle frame() const;
+    virtual Rectangle frame() const {
+        return Rectangle(position(), Size());
+    }
 
     virtual void initialize() { }
 
