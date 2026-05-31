@@ -7,16 +7,6 @@ add_library(
 
     STATIC
 
-    seraph/action/FunctionAction.cpp
-    seraph/action/InfiniteAction.cpp
-    seraph/action/MoveAction.cpp
-    seraph/action/ParallelAction.cpp
-    seraph/action/RepeatAction.cpp
-    seraph/action/RotateAction.cpp
-    seraph/action/ScaleAction.cpp
-    seraph/action/SequenceAction.cpp
-    seraph/action/WaitAction.cpp
-
     seraph/core/Game.cpp
     seraph/core/Window.cpp
 
@@ -28,23 +18,31 @@ add_library(
 )
 target_include_directories(
     seraph
+
     PRIVATE
+
     .
 )
 
 add_executable(
     gravity
+
     demos/gravity/main.cpp
 )
 target_include_directories(
     gravity
+
     PRIVATE
+
     .
 )
 target_link_libraries(
     gravity
+
     PRIVATE
+
     seraph
+
     -lsfml-audio
     -lsfml-graphics
     -lsfml-system
@@ -55,19 +53,27 @@ enable_testing()
 
 add_executable(
     seraph_tests
+
+    tests/action/FunctionActionTests.cpp
+
     tests/core/ColorTests.cpp
     tests/core/PointTests.cpp
     tests/core/SizeTests.cpp
+
     tests/main.cpp
 )
 target_include_directories(
     seraph_tests
+
     PRIVATE
+
     .
 )
 target_link_libraries(
     seraph_tests
+
     PRIVATE
+
     seraph
 )
 add_test(seraph_tests seraph_tests)

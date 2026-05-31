@@ -10,6 +10,7 @@ class InfiniteAction {
 
 public:
 
+    // NOTE: Defined in AnyAction.hpp
     InfiniteAction(const AnyAction &action) noexcept;
 
     constexpr const AnyAction &action() const noexcept {
@@ -20,6 +21,7 @@ public:
         return std::numeric_limits<float>::infinity();
     }
 
+    // NOTE: Defined in AnyAction.hpp
     AnyAction reversed() const noexcept;
 
 private:

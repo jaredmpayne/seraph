@@ -9,7 +9,7 @@ public:
     constexpr RotateAction(float rotation, float duration) noexcept :
         m_rotation(rotation),
         m_duration(duration) { }
-    
+
     constexpr float rotation() const noexcept {
         return m_rotation;
     }
@@ -18,6 +18,7 @@ public:
         return m_duration;
     }
 
+    // NOTE: Defined in AnyAction.hpp
     AnyAction reversed() const noexcept;
 
 private:

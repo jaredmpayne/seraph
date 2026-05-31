@@ -8,6 +8,7 @@ class RepeatAction {
 
 public:
 
+    // NOTE: Defined in AnyAction.hpp
     RepeatAction(const AnyAction &action, int count) noexcept;
 
     constexpr const AnyAction &action() const noexcept {
@@ -18,8 +19,10 @@ public:
         return m_count;
     }
 
+    // NOTE: Defined in AnyAction.hpp
     float duration() const noexcept;
 
+    // NOTE: Defined in AnyAction.hpp
     AnyAction reversed() const noexcept;
 
 private:

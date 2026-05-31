@@ -20,6 +20,7 @@ public:
         return m_duration;
     }
 
+    // NOTE: Defined in AnyAction.hpp
     AnyAction reversed() const noexcept;
 
 private:

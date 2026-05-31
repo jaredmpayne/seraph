@@ -19,6 +19,7 @@ public:
         return 0.0f;
     }
 
+    // NOTE: Defined in AnyAction.hpp
     AnyAction reversed() const noexcept;
 
 private:
