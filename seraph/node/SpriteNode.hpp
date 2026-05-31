@@ -10,6 +10,7 @@
 #include <seraph/core/Vector.hpp>
 #include <seraph/core/Window.hpp>
 #include <seraph/node/Node.hpp>
+#include <seraph/memory/TextureManager.hpp>
 
 /// A node for drawing textures that should be stored in graphics memory.
 class SpriteNode : public Node {
@@ -19,17 +20,16 @@ public:
     SpriteNode(const std::filesystem::path &path) :
         m_texture(TextureManager::instance().get(path)) {
 
-        // TODO: Unlike fonts, using list initialization for `sf::Sprite` right
-        // after initializing `m_texture` causes the resource to drop from memory.
+        // Using list initialization for `sf::Sprite` causes the resource to drop from memory.
         m_sprite = sf::Sprite(*m_texture);
         const auto [width, height] = m_texture->getSize();
-        m_sprite.value().setOrigin(sf::Vector2f(0.5f * width, 0.5f * height));
+        m_sprite->setOrigin(sf::Vector2f(0.5f * width, 0.5f * height));
     }
 
     virtual ~SpriteNode() override = default;
 
     virtual Rectangle frame() const override {
-        const auto bounds = m_sprite.value().getGlobalBounds();
+        const auto bounds = m_sprite->getGlobalBounds();
         const auto [x, y] = bounds.position;
         const auto [width, height] = bounds.size;
         return Rectangle(x, y, width, height);
@@ -39,9 +39,9 @@ public:
         const auto [x, y] = absolute_position();
         const auto rotation = absolute_rotation();
         const auto [dx, dy] = absolute_scale();
-        m_sprite.value().setPosition(sf::Vector2f(x, y));
-        m_sprite.value().setRotation(sf::radians(rotation));
-        m_sprite.value().setScale(sf::Vector2f(dx, dy));
+        m_sprite->setPosition(sf::Vector2f(x, y));
+        m_sprite->setRotation(sf::radians(rotation));
+        m_sprite->setScale(sf::Vector2f(dx, dy));
         window.render_window().draw(m_sprite.value());
     }
 
