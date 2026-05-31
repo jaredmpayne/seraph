@@ -10,17 +10,22 @@
 #include <seraph/core/Size.hpp>
 #include <seraph/event/AnyEvent.hpp>
 
-class Node;
-class LabelNode;
-class ShapeNode;
-class SpriteNode;
-
 class Window {
 
 public:
 
-    Window(const Size &size, const std::string &title) :
+    Window(const Size &size, const std::string &title = "") :
         m_render_window(sf::VideoMode(sf::Vector2u(size.width(), size.height())), title) { }
+
+    Window(Window &&) noexcept = default;
+
+    Window &operator=(Window &&) noexcept = default;
+
+    virtual ~Window() noexcept = default;
+
+    Window(const Window &) noexcept = delete;
+
+    Window &operator=(const Window &) noexcept = delete;
 
     bool is_open() const {
         return m_render_window.isOpen();
@@ -30,6 +35,15 @@ public:
         m_render_window.close();
     }
 
+    virtual void on_gain_focus() { };
+
+    virtual void on_lose_focus() { };
+
+    virtual void on_resize(const Size &) { };
+
+private:
+friend class Game;
+
     void clear(const Color &color) {
         const auto [r, g, b, a] = color;
         m_render_window.clear(sf::Color(r, g, b, a));
@@ -38,6 +52,9 @@ public:
     void display() {
         m_render_window.display();
     }
+
+private:
+friend class EventSystem;
 
     std::optional<AnyEvent> next_event();
 

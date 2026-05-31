@@ -7,6 +7,7 @@
 
 #include <seraph/core/Point.hpp>
 #include <seraph/core/Size.hpp>
+#include <seraph/event/AnyEvent.hpp>
 #include <seraph/event/FocusGainedEvent.hpp>
 #include <seraph/event/FocusLostEvent.hpp>
 #include <seraph/event/KeyPressedEvent.hpp>

@@ -5,23 +5,29 @@
 #include <seraph/core/Input.hpp>
 #include <seraph/core/Size.hpp>
 #include <seraph/core/Window.hpp>
+#include <seraph/event/EventSystem.hpp>
 #include <seraph/node/Node.hpp>
 #include <seraph/node/Scene.hpp>
-#include <seraph/physics/PhysicsWorld.hpp>
 
 class Game {
 
 public:
 
-    Game(const std::shared_ptr<Scene> &scene) noexcept :
-        m_scene(scene),
-        m_window(Size(1280, 720), "Window") { }
-
     static constexpr float time_per_fixed_update() noexcept {
         return 1.0f / 60.0f;
     }
-    
-    std::shared_ptr<Scene> scene() const {
+
+    Game() noexcept = default;
+
+    constexpr const Input &input() const noexcept {
+        return m_input;
+    }
+
+    constexpr const Window &window() const noexcept {
+        return m_window;
+    }
+
+    constexpr std::shared_ptr<Scene> scene() {
         return m_scene;
     }
 
@@ -29,15 +35,9 @@ public:
         m_scene = scene;
     }
 
-    virtual void on_gain_focus() { }
-
-    virtual void on_lose_focus() { }
-
     int run();
 
 private:
-
-    void process_events();
 
     void update(const std::shared_ptr<Node> &node, float delta_time);
 
@@ -47,7 +47,9 @@ private:
 
     void draw(Node *node);
 
-    Window m_window;
+    Input m_input;
+
+    Window m_window = Window(Size(1280.0f, 720.0f), "");
 
     std::shared_ptr<Scene> m_scene;
 };
