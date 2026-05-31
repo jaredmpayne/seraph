@@ -13,11 +13,11 @@ class Game {
 
 public:
 
+    Game() noexcept = default;
+
     static constexpr float time_per_fixed_update() noexcept {
         return 1.0f / 60.0f;
     }
-
-    Game() noexcept = default;
 
     constexpr const Input &input() const noexcept {
         return m_input;

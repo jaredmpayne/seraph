@@ -30,7 +30,10 @@ public:
     /// Copies a `Color` from another.
     constexpr Color(const Color &) noexcept = default;
 
-    /// Assigns a `Color` from another.
+    /// Move assigns a `Color` from another.
+    constexpr Color &operator=(Color &&) noexcept = default;
+
+    /// Copy assigns a `Color` from another.
     constexpr Color &operator=(const Color &) noexcept = default;
 
     /// Compares two `Color` objects.

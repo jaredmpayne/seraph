@@ -20,7 +20,10 @@ public:
     /// Copies a `Clock` from another.
     constexpr Clock(const Clock &) noexcept = default;
 
-    /// Assigns a `Clock` from another.
+    /// Move assigns a `Clock` from another.
+    constexpr Clock &operator=(Clock &&) noexcept = default;
+
+    /// Copy assigns a `Clock` from another.
     constexpr Clock &operator=(const Clock &) noexcept = default;
 
     /// Compares two `Point` objects.

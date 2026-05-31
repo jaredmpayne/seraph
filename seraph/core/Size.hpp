@@ -27,7 +27,10 @@ public:
     /// Copies a `Size` from another.
     constexpr Size(const Size &) noexcept = default;
 
-    /// Assigns a `Size` from another.
+    /// Move assigns a `Size` from another.
+    constexpr Size &operator=(Size &&) noexcept = default;
+
+    /// Copy assigns a `Size` from another.
     constexpr Size &operator=(const Size &) noexcept = default;
 
     /// Compares two `Size` objects.

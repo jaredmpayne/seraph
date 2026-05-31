@@ -25,7 +25,10 @@ public:
     /// Copies an `Exception` from another.
     constexpr Exception(const Exception &) noexcept = default;
 
-    /// Assigns an `Exception` from another.
+    /// Move assigns an `Exception` from another.
+    constexpr Exception &operator=(Exception &&) noexcept = default;
+
+    /// Copy assigns an `Exception` from another.
     constexpr Exception &operator=(const Exception &) noexcept = default;
 
     /// Compares two `Exception` objects.

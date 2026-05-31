@@ -27,7 +27,10 @@ public:
     /// Copies a `Vector` from another.
     constexpr Vector(const Vector &) noexcept = default;
 
-    /// Assigns a `Vector` from another.
+    /// Move assigns a `Vector` from another.
+    constexpr Vector &operator=(Vector &&) noexcept = default;
+
+    /// Copy assigns a `Vector` from another.
     constexpr Vector &operator=(const Vector &) noexcept = default;
 
     /// Compares two `Vector` objects.
@@ -132,7 +135,7 @@ public:
     /// @param tolerance The smallest tolerable difference between values.
     /// @return `true` if the values are equal within `tolerance`, otherwise `false`.
     constexpr bool is_approximately(const Vector &other, float tolerance = Math::epsilon()) const noexcept {
-        return Math::is_approximately(dx(), other.dx(), tolerance)  
+        return Math::is_approximately(dx(), other.dx(), tolerance)
             && Math::is_approximately(dy(), other.dy(), tolerance);
     }
 

@@ -17,9 +17,20 @@ public:
     constexpr Box(const T &value) noexcept :
         m_value(std::make_unique<T>(value)) { }
 
+    /// Moves a `Box` from another.
+    constexpr Box(Box<T> &&) noexcept = default;
+
     /// Copies a `Box` from another.
     constexpr Box(const Box<T> &other) noexcept :
         Box(other.value()) { }
+
+    /// Move assigns a `Box` from another.
+    constexpr Box<T> &operator=(Box<T> &&) noexcept = default;
+
+    /// Copy assigns a `Box` from another.
+    constexpr Box<T> &&operator=(const Box<T> &other) noexcept {
+        return Box<T>(other.value());
+    }
 
     /// The contained value.
     constexpr const T &value() const noexcept {

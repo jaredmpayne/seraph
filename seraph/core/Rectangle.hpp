@@ -11,7 +11,11 @@
 #include <seraph/core/Vector.hpp>
 #include <seraph/hash/SipHasher.hpp>
 
-/// A primitive class comprised of a `Point` in space and a `Size` width and height.
+/// Represents a `Point` in space and a `Size` width and height.
+///
+/// In most contexts, the position will be considered the center of the
+/// `Rectangle`. To construct a `Rectangle` from the context of its top-left
+/// corner, see the static helper function `Rectangle::from_top_left_corner`.
 class Rectangle {
 
 public:
@@ -23,7 +27,7 @@ public:
     constexpr Rectangle(const Point &position, const Size &size) noexcept :
         m_position(position),
         m_size(size) { }
-    
+
     /// Constructs a `Rectangle` at position *(x, y)* of the given width and
     /// height.
     ///
@@ -189,7 +193,7 @@ public:
     constexpr Point top_right_corner(float rotation) const noexcept {
         if (rotation == 0.0f) {
             return top_right_corner();
-        } 
+        }
         const auto sin_r = std::sin(rotation);
         const auto cos_r = std::cos(rotation);
         return Point(

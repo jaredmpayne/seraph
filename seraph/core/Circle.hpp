@@ -30,8 +30,11 @@ public:
     /// Copies a `Circle` from another.
     constexpr Circle(const Circle &) noexcept = default;
 
-    /// Assigns a `Circle` from another.
-    constexpr Circle &operator=(const Circle &) noexcept = default;
+    /// Move assigns a `Circle` from another.
+    constexpr Circle &operator=(Circle &&) noexcept = default;
+
+    /// Copy assigns a `Circle` from another.
+    constexpr Circle &operator=(const Circle &) const noexcept = default;
 
     /// Compares two `Circle` objects.
     ///
@@ -135,7 +138,7 @@ public:
     constexpr const std::tuple_element_t<Index, Circle> &get() const noexcept {
         if constexpr (Index == 0) {
             return position();
-        } 
+        }
         if constexpr (Index == 1) {
             return radius();
         }

@@ -25,9 +25,21 @@ public:
     constexpr SipHasher(std::uint64_t k0, std::uint64_t k1) noexcept :
         m_k0(k0),
         m_k1(k1) {
-        
+
         reset();
     }
+
+    /// Moves a `SipHasher` from another.
+    constexpr SipHasher(SipHasher &&) noexcept = default;
+
+    /// Copies a `SipHasher` from another.
+    constexpr SipHasher(const SipHasher &) noexcept = default;
+
+    /// Move assigns a `SipHasher` from another.
+    constexpr SipHasher &operator=(SipHasher &&) noexcept = default;
+
+    /// Copy assigns a `SipHasher` from another.
+    constexpr SipHasher &operator=(const SipHasher &) noexcept = default;
 
     /// The `SipHasher`'s current value.
     constexpr std::uint64_t value() const noexcept {

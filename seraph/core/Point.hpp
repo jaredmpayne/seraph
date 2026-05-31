@@ -29,7 +29,10 @@ public:
     /// Copies a `Point` from another.
     constexpr Point(const Point &) noexcept = default;
 
-    /// Assigns a `Point` from another.
+    /// Move assigns a `Point` from another.
+    constexpr Point &operator=(Point &&) noexcept = default;
+
+    /// Copy assigns a `Point` from another.
     constexpr Point &operator=(const Point &) noexcept = default;
 
     /// Compares two `Point` objects.
