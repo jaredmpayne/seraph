@@ -23,16 +23,16 @@ public:
         return m_input;
     }
 
-    constexpr const Window &window() const noexcept {
-        return m_window;
-    }
-
-    constexpr std::shared_ptr<Scene> scene() {
+    constexpr const std::shared_ptr<Scene> &scene() {
         return m_scene;
     }
 
     void set_scene(const std::shared_ptr<Scene> &scene) {
         m_scene = scene;
+    }
+
+    constexpr const Window &window() const noexcept {
+        return *m_window;
     }
 
     int run();
@@ -49,7 +49,7 @@ private:
 
     Input m_input;
 
-    Window m_window = Window(Size(1280.0f, 720.0f), "");
-
     std::shared_ptr<Scene> m_scene;
+
+    std::unique_ptr<Window> m_window = std::make_unique<Window>(Size(1280.0f, 720.0f), "");
 };

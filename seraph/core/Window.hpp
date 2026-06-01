@@ -1,6 +1,5 @@
 #pragma once
 
-#include <optional>
 #include <string>
 
 #include <SFML/Graphics.hpp>
@@ -20,8 +19,6 @@ public:
     Window(Window &&) noexcept = default;
 
     Window &operator=(Window &&) noexcept = default;
-
-    virtual ~Window() noexcept = default;
 
     Window(const Window &) noexcept = delete;
 

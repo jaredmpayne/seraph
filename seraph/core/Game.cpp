@@ -11,7 +11,7 @@ int Game::run() {
     auto clock = Clock();
     auto time_since_last_fixed_update = 0.0f;
     while (window().is_open()) {
-        EventSystem(m_input, m_window).update();
+        EventSystem(m_input, *m_window).update();
         update(scene(), clock.time_elapsed());
         time_since_last_fixed_update += clock.restart();
         while (time_since_last_fixed_update > time_per_fixed_update()) {
@@ -43,14 +43,14 @@ void Game::fixed_update(const std::shared_ptr<Node> &node) {
 }
 
 void Game::render() {
-    m_window.clear(m_scene->background_color());
+    m_window->clear(m_scene->background_color());
     draw(m_scene.get());
-    m_window.display();
+    m_window->display();
 }
 
 void Game::draw(Node *node) {
     if (!node->is_hidden()) {
-        node->draw(m_window);
+        node->draw(*m_window);
         for (const auto &child : node->children()) {
             draw(child.get());
         }
