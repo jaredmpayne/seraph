@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include <SFML/Window/Keyboard.hpp>
+
 #include <seraph/core/Input.hpp>
 #include <seraph/core/Size.hpp>
 #include <seraph/core/VisitSet.hpp>
@@ -37,9 +39,61 @@ public:
                     },
                     [&](const KeyPressedEvent &event) {
                         m_input.set_key_down(event.key_code());
+
+                        // SFML provides info regarding Ctrl/Alt/Shift/System
+                        // in their events, but it doesn't discern between
+                        // left and right so we need to do this instead.
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
+                            m_input.set_key_down(KeyCode::left_ctrl());
+                        }
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LAlt)) {
+                            m_input.set_key_down(KeyCode::left_alt());
+                        }
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift)) {
+                            m_input.set_key_down(KeyCode::left_shift());
+                        }
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LSystem)) {
+                            m_input.set_key_down(KeyCode::left_system());
+                        }
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RControl)) {
+                            m_input.set_key_down(KeyCode::right_ctrl());
+                        }
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RAlt)) {
+                            m_input.set_key_down(KeyCode::right_alt());
+                        }
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift)) {
+                            m_input.set_key_down(KeyCode::right_shift());
+                        }
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RSystem)) {
+                            m_input.set_key_down(KeyCode::right_system());
+                        }
                     },
                     [&](const KeyReleasedEvent &event) {
                         m_input.set_key_up(event.key_code());
+                        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
+                            m_input.set_key_up(KeyCode::left_ctrl());
+                        }
+                        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LAlt)) {
+                            m_input.set_key_up(KeyCode::left_alt());
+                        }
+                        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift)) {
+                            m_input.set_key_up(KeyCode::left_shift());
+                        }
+                        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LSystem)) {
+                            m_input.set_key_up(KeyCode::left_system());
+                        }
+                        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RControl)) {
+                            m_input.set_key_up(KeyCode::right_ctrl());
+                        }
+                        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RAlt)) {
+                            m_input.set_key_up(KeyCode::right_alt());
+                        }
+                        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift)) {
+                            m_input.set_key_up(KeyCode::right_shift());
+                        }
+                        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RSystem)) {
+                            m_input.set_key_up(KeyCode::right_system());
+                        }
                     },
                     [&](const MouseMovedEvent &event) {
                         m_input.set_mouse_position(event.position());

@@ -22,4 +22,14 @@ public:
     static constexpr bool is_approximately(float x, float y, float tolerance = epsilon()) noexcept {
         return std::abs(x - y) <= tolerance;
     }
+
+    /// Tests if a given value is inside an inclusive range.
+    ///
+    /// @param value The tested value.
+    /// @param min The range minimum.
+    /// @param max The range maximum.
+    template <typename T>
+    static constexpr bool is_in_range(const T &value, const T &min, const T &max) noexcept {
+        return value >= min && value <= max;
+    }
 };

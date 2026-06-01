@@ -2,6 +2,8 @@
 
 #include <seraph/core/Size.hpp>
 
+class AnyEvent;
+
 class WindowResizedEvent {
 
 public:
@@ -12,6 +14,9 @@ public:
     constexpr const Size &size() const noexcept {
         return m_size;
     }
+
+    // NOTE: Defined in AnyEvent.hpp
+    constexpr AnyEvent erased() const noexcept;
 
 private:
 

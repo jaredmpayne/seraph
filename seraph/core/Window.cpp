@@ -21,35 +21,39 @@
 std::optional<AnyEvent> Window::next_event() {
     if (const auto event = m_render_window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
-            return AnyEvent(WindowClosedEvent());
+            return WindowClosedEvent().erased();
         }
         if (event->is<sf::Event::FocusGained>()) {
-            return AnyEvent(FocusGainedEvent());
+            return FocusGainedEvent().erased();
         }
         if (event->is<sf::Event::FocusLost>()) {
-            return AnyEvent(FocusLostEvent());
+            return FocusLostEvent().erased();
         }
         if (const auto key_event = event->getIf<sf::Event::KeyPressed>()) {
-            return AnyEvent(KeyPressedEvent(KeyCode(key_event->code)));
+            const auto value = int(key_event->code);
+            return KeyPressedEvent(*KeyCode::from_value(value)).erased();
         }
         if (const auto key_event = event->getIf<sf::Event::KeyReleased>()) {
-            return AnyEvent(KeyReleasedEvent(KeyCode(key_event->code)));
+            const auto value = int(key_event->code);
+            return KeyReleasedEvent(*KeyCode::from_value(value)).erased();
         }
         if (const auto mouse_event = event->getIf<sf::Event::MouseButtonPressed>()) {
+            const auto value = int(mouse_event->button);
             const auto [x, y] = mouse_event->position;
-            return AnyEvent(MousePressedEvent(MouseCode(mouse_event->button), Point(x, y)));
+            return MousePressedEvent(*MouseCode::from_value(value), Point(x, y)).erased();
         }
         if (const auto mouse_event = event->getIf<sf::Event::MouseButtonReleased>()) {
+            const auto value = int(mouse_event->button);
             const auto [x, y] = mouse_event->position;
-            return AnyEvent(MouseReleasedEvent(MouseCode(mouse_event->button), Point(x, y)));
+            return MouseReleasedEvent(*MouseCode::from_value(value), Point(x, y)).erased();
         }
         if (const auto mouse_event = event->getIf<sf::Event::MouseMoved>()) {
             const auto [x, y] = mouse_event->position;
-            return AnyEvent(MouseMovedEvent(Point(x, y)));
+            return MouseMovedEvent(Point(x, y)).erased();
         }
         if (const auto window_event = event->getIf<sf::Event::Resized>()) {
             const auto [width, height] = window_event->size;
-            return AnyEvent(WindowResizedEvent(Size(width, height)));
+            return WindowResizedEvent(Size(width, height)).erased();
         }
     }
     return std::nullopt;

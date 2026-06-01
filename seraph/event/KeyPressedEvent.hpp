@@ -2,6 +2,8 @@
 
 #include <seraph/core/KeyCode.hpp>
 
+class AnyEvent;
+
 class KeyPressedEvent {
 
 public:
@@ -39,10 +41,15 @@ public:
         return m_is_super_down;
     }
 
+    // NOTE: Defined in AnyEvent.hpp
+    constexpr AnyEvent erased() const noexcept;
+
 private:
 
     KeyCode m_key_code;
 
+    // TODO: We really shouldn't need these because they don't identify
+    // left/right keys so we have to check another way anyway.
     bool m_is_ctrl_down = false;
 
     bool m_is_alt_down = false;
