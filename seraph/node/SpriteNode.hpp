@@ -26,8 +26,6 @@ public:
         m_sprite->setOrigin(sf::Vector2f(0.5f * width, 0.5f * height));
     }
 
-    virtual ~SpriteNode() override = default;
-
     virtual Rectangle frame() const override {
         const auto bounds = m_sprite->getGlobalBounds();
         const auto [x, y] = bounds.position;

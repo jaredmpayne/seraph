@@ -22,8 +22,6 @@ public:
 
     constexpr Node() noexcept = default;
 
-    virtual ~Node() noexcept = default;
-
 // SECTION: Node Properties
 
     constexpr const Point &position() const noexcept {

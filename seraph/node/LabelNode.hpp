@@ -25,8 +25,6 @@ public:
             m_text = sf::Text(*m_font, sf::String(string));
         }
 
-    virtual ~LabelNode() override = default;
-
     std::u32string_view string_view() const {
         return std::u32string_view(m_text->getString().getData());
     }

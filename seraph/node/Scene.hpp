@@ -18,8 +18,6 @@ public:
 
     constexpr Scene() = default;
 
-    virtual ~Scene() override = default;
-
     constexpr const Color &background_color() const noexcept {
         return m_background_color;
     }

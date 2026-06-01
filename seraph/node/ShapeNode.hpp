@@ -24,8 +24,6 @@ public:
         m_stroke_color = Color(sr, sg, sb, sa);
     }
 
-    virtual ~ShapeNode() override = default;
-
     constexpr float radius() const {
         return m_shape.getRadius();
     }

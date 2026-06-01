@@ -21,8 +21,6 @@ public:
     /// velocity, and has a default mass of `1.0f`.
     constexpr PhysicsBody() noexcept = default;
 
-    virtual ~PhysicsBody() noexcept = default;
-
     /// The bit mask that identifies this `PhysicsBody`'s category for collisions.
     constexpr std::uint64_t category_bit_mask() const noexcept {
         return m_category_bit_mask;
@@ -32,7 +30,7 @@ public:
         m_category_bit_mask = category_bit_mask;
     }
 
-    /// The bit mask that identifies the object categories this `PhysicsBody` can collide with. 
+    /// The bit mask that identifies the object categories this `PhysicsBody` can collide with.
     constexpr std::uint64_t collision_bit_mask() const noexcept {
         return m_collision_bit_mask;
     }
