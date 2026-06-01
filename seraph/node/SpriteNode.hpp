@@ -10,7 +10,7 @@
 #include <seraph/core/Vector.hpp>
 #include <seraph/core/Window.hpp>
 #include <seraph/node/Node.hpp>
-#include <seraph/memory/TextureManager.hpp>
+#include <seraph/memory/ResourceManager.hpp>
 
 /// A node for drawing textures that should be stored in graphics memory.
 class SpriteNode : public Node {
@@ -18,7 +18,7 @@ class SpriteNode : public Node {
 public:
 
     SpriteNode(const std::filesystem::path &path) :
-        m_texture(TextureManager::instance().get(path)) {
+        m_texture(texture_manager().get(path)) {
 
         // Using list initialization for `sf::Sprite` causes the resource to drop from memory.
         m_sprite = sf::Sprite(*m_texture);
@@ -46,6 +46,11 @@ public:
     }
 
 private:
+
+    static constexpr ResourceManager<sf::Texture> &texture_manager() noexcept {
+        static auto manager = ResourceManager<sf::Texture>();
+        return manager;
+    }
 
     std::optional<sf::Sprite> m_sprite;
 

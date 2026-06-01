@@ -28,7 +28,9 @@ public:
         }
     }
 
-    virtual std::shared_ptr<T> make(const std::filesystem::path &path) = 0;
+    std::shared_ptr<T> make(const std::filesystem::path &path) {
+        return std::make_shared<T>(path);
+    }
 
 private:
 

@@ -10,7 +10,7 @@
 #include <seraph/core/Color.hpp>
 #include <seraph/core/Rectangle.hpp>
 #include <seraph/core/Window.hpp>
-#include <seraph/memory/FontManager.hpp>
+#include <seraph/memory/ResourceManager.hpp>
 #include <seraph/node/Node.hpp>
 
 /// A node for displaying fonted text.
@@ -19,7 +19,7 @@ class LabelNode : public Node {
 public:
 
     LabelNode(const std::filesystem::path &font_path, const std::u32string &string = std::u32string()) :
-        m_font(FontManager::instance().get(font_path)) {
+        m_font(font_manager().get(font_path)) {
 
             // Using list initialization for `sf::Text` causes the resource to drop from memory.
             m_text = sf::Text(*m_font, sf::String(string));
@@ -88,6 +88,11 @@ public:
     }
 
 private:
+
+    static constexpr ResourceManager<sf::Font> &font_manager() noexcept {
+        static auto manager = ResourceManager<sf::Font>();
+        return manager;
+    }
 
     std::optional<sf::Text> m_text;
 
