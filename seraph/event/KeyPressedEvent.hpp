@@ -1,6 +1,6 @@
 #pragma once
 
-#include <seraph/core/KeyCode.hpp>
+#include <seraph/core/ScanCode.hpp>
 
 class AnyEvent;
 
@@ -8,37 +8,11 @@ class KeyPressedEvent {
 
 public:
 
-    constexpr KeyPressedEvent(
-        KeyCode key_code,
-        bool is_ctrl_down = false,
-        bool is_alt_down = false,
-        bool is_shift_down = false,
-        bool is_super_down = false
-    ) noexcept :
-        m_key_code(key_code),
-        m_is_ctrl_down(is_ctrl_down),
-        m_is_alt_down(is_alt_down),
-        m_is_shift_down(is_shift_down),
-        m_is_super_down(is_super_down) { }
+    constexpr KeyPressedEvent(ScanCode scan_code) noexcept :
+        m_scan_code(scan_code) { }
 
-    constexpr KeyCode key_code() const noexcept {
-        return m_key_code;
-    }
-
-    constexpr bool is_ctrl_down() const noexcept {
-        return m_is_ctrl_down;
-    }
-
-    constexpr bool is_alt_down() const noexcept {
-        return m_is_alt_down;
-    }
-
-    constexpr bool is_shift_down() const noexcept {
-        return m_is_shift_down;
-    }
-
-    constexpr bool is_super_down() const noexcept {
-        return m_is_super_down;
+    constexpr ScanCode scan_code() const noexcept {
+        return m_scan_code;
     }
 
     // NOTE: Defined in AnyEvent.hpp
@@ -46,15 +20,5 @@ public:
 
 private:
 
-    KeyCode m_key_code;
-
-    // TODO: We really shouldn't need these because they don't identify
-    // left/right keys so we have to check another way anyway.
-    bool m_is_ctrl_down = false;
-
-    bool m_is_alt_down = false;
-
-    bool m_is_shift_down = false;
-
-    bool m_is_super_down = false;
+    ScanCode m_scan_code;
 };

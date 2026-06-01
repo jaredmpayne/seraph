@@ -1,16 +1,17 @@
 #pragma once
 
-#include <cstddef>
 #include <optional>
 
 #include <seraph/core/Math.hpp>
+
+class ScanCode;
 
 class KeyCode {
 
 public:
 
     static constexpr bool is_in_range(int value) noexcept {
-        return Math::is_in_range(value, *unknown(), *pause());
+        return Math::is_in_range(value, *a(), *pause());
     }
 
     static constexpr std::optional<KeyCode> from_value(int value) noexcept {
@@ -18,10 +19,6 @@ public:
             return KeyCode(value);
         }
         return std::nullopt;
-    }
-
-    static constexpr KeyCode unknown() noexcept {
-        return KeyCode(-1);
     }
 
     static constexpr KeyCode a() noexcept {
@@ -284,7 +281,7 @@ public:
         return KeyCode(64);
     }
 
-    static constexpr KeyCode ins() noexcept {
+    static constexpr KeyCode insert() noexcept {
         return KeyCode(65);
     }
 
@@ -428,7 +425,7 @@ public:
         return KeyCode(100);
     }
 
-    constexpr auto operator<=>(const KeyCode &other) const noexcept = default;
+    constexpr auto operator<=>(const KeyCode &) const noexcept = default;
 
     constexpr int operator*() const noexcept {
         return value();
@@ -437,6 +434,9 @@ public:
     constexpr int value() const noexcept {
         return m_value;
     }
+
+    // NOTE: Defined in ScanCode.hpp
+    constexpr std::optional<ScanCode> delocalized() const noexcept;
 
 private:
 

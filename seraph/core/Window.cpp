@@ -6,6 +6,7 @@
 #include <SFML/Window.hpp>
 
 #include <seraph/core/Point.hpp>
+#include <seraph/core/ScanCode.hpp>
 #include <seraph/core/Size.hpp>
 #include <seraph/event/AnyEvent.hpp>
 #include <seraph/event/FocusGainedEvent.hpp>
@@ -30,12 +31,12 @@ std::optional<AnyEvent> Window::next_event() {
             return FocusLostEvent().erased();
         }
         if (const auto key_event = event->getIf<sf::Event::KeyPressed>()) {
-            const auto value = int(key_event->code);
-            return KeyPressedEvent(*KeyCode::from_value(value)).erased();
+            const auto value = int(key_event->scancode);
+            return KeyPressedEvent(*ScanCode::from_value(value)).erased();
         }
         if (const auto key_event = event->getIf<sf::Event::KeyReleased>()) {
-            const auto value = int(key_event->code);
-            return KeyReleasedEvent(*KeyCode::from_value(value)).erased();
+            const auto value = int(key_event->scancode);
+            return KeyReleasedEvent(*ScanCode::from_value(value)).erased();
         }
         if (const auto mouse_event = event->getIf<sf::Event::MouseButtonPressed>()) {
             const auto value = int(mouse_event->button);
