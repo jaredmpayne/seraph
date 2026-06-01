@@ -11,7 +11,7 @@ class InfiniteAction {
 public:
 
     // NOTE: Defined in AnyAction.hpp
-    InfiniteAction(const AnyAction &action) noexcept;
+    constexpr InfiniteAction(const AnyAction &action) noexcept;
 
     constexpr const AnyAction &action() const noexcept {
         return m_action.value();
@@ -22,7 +22,9 @@ public:
     }
 
     // NOTE: Defined in AnyAction.hpp
-    AnyAction reversed() const noexcept;
+    constexpr AnyAction reversed() const noexcept;
+
+    constexpr AnyAction erased() const noexcept;
 
 private:
 

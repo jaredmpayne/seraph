@@ -20,7 +20,10 @@ public:
     }
 
     // NOTE: Defined in AnyAction.hpp
-    AnyAction reversed() const noexcept;
+    constexpr AnyAction reversed() const noexcept;
+
+    // NOTE: Defined in AnyAction.hpp
+    constexpr AnyAction erased() const noexcept;
 
 private:
 

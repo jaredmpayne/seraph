@@ -9,7 +9,7 @@ class RepeatAction {
 public:
 
     // NOTE: Defined in AnyAction.hpp
-    RepeatAction(const AnyAction &action, int count) noexcept;
+    constexpr RepeatAction(const AnyAction &action, int count) noexcept;
 
     constexpr const AnyAction &action() const noexcept {
         return m_action.value();
@@ -19,11 +19,13 @@ public:
         return m_count;
     }
 
-    // NOTE: Defined in AnyAction.hpp
-    float duration() const noexcept;
+    constexpr float duration() const noexcept;
 
     // NOTE: Defined in AnyAction.hpp
-    AnyAction reversed() const noexcept;
+    constexpr AnyAction reversed() const noexcept;
+
+    // NOTE: Defined in AnyAction.hpp
+    constexpr AnyAction erased() const noexcept;
 
 private:
 

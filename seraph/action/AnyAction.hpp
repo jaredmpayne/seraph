@@ -48,29 +48,41 @@ public:
     }
 };
 
-inline AnyAction FunctionAction::reversed() const noexcept {
+constexpr AnyAction FunctionAction::reversed() const noexcept {
     return *this;
 }
 
-inline InfiniteAction::InfiniteAction(const AnyAction &action) noexcept :
+constexpr AnyAction FunctionAction::erased() const noexcept {
+    return *this;
+}
+
+constexpr InfiniteAction::InfiniteAction(const AnyAction &action) noexcept :
     m_action(action) { }
 
-inline AnyAction InfiniteAction::reversed() const noexcept {
-    return action().reversed();
+constexpr AnyAction InfiniteAction::reversed() const noexcept {
+    return std::get<InfiniteAction>(action().reversed());
 }
 
-inline AnyAction MoveAction::reversed() const noexcept {
-    return MoveAction(delta().reversed(), duration());
+constexpr AnyAction InfiniteAction::erased() const noexcept {
+    return *this;
 }
 
-inline ParallelAction::ParallelAction(const std::vector<AnyAction> &actions) noexcept :
+constexpr AnyAction MoveAction::reversed() const noexcept {
+    return MoveAction(delta().negative(), duration());
+}
+
+constexpr AnyAction MoveAction::erased() const noexcept {
+    return *this;
+}
+
+constexpr ParallelAction::ParallelAction(const std::vector<AnyAction> &actions) noexcept :
     m_actions(actions) { }
 
-inline float ParallelAction::duration() const noexcept {
+constexpr float ParallelAction::duration() const noexcept {
     return std::ranges::max_element(actions(), std::less(), &AnyAction::duration)->duration();
 }
 
-inline AnyAction ParallelAction::reversed() const noexcept {
+constexpr AnyAction ParallelAction::reversed() const noexcept {
     return ParallelAction(
         actions()
             | std::views::transform(&AnyAction::reversed)
@@ -78,30 +90,46 @@ inline AnyAction ParallelAction::reversed() const noexcept {
     );
 }
 
-inline RepeatAction::RepeatAction(const AnyAction &action, int count) noexcept :
+constexpr AnyAction ParallelAction::erased() const noexcept {
+    return *this;
+}
+
+constexpr RepeatAction::RepeatAction(const AnyAction &action, int count) noexcept :
     m_action(action),
     m_count(count) { }
 
-inline float RepeatAction::duration() const noexcept {
+constexpr float RepeatAction::duration() const noexcept {
     return action().duration() * count();
 }
 
-inline AnyAction RepeatAction::reversed() const noexcept {
+constexpr AnyAction RepeatAction::reversed() const noexcept {
     return RepeatAction(action().reversed(), count());
 }
 
-inline AnyAction RotateAction::reversed() const noexcept {
+constexpr AnyAction RepeatAction::erased() const noexcept {
+    return *this;
+}
+
+constexpr AnyAction RotateAction::reversed() const noexcept {
     return RotateAction(-1.0f * rotation(), duration());
 }
 
-inline AnyAction ScaleAction::reversed() const noexcept {
+constexpr AnyAction RotateAction::erased() const noexcept {
+    return *this;
+}
+
+constexpr AnyAction ScaleAction::reversed() const noexcept {
     return ScaleAction(1.0f / delta(), duration());
 }
 
-inline SequenceAction::SequenceAction(const std::vector<AnyAction> &actions) noexcept :
+constexpr AnyAction ScaleAction::erased() const noexcept {
+    return *this;
+}
+
+constexpr SequenceAction::SequenceAction(const std::vector<AnyAction> &actions) noexcept :
     m_actions(actions) { }
 
-inline float SequenceAction::duration() const noexcept {
+constexpr float SequenceAction::duration() const noexcept {
     return std::transform_reduce(
         actions().cbegin(),
         actions().cend(),
@@ -111,7 +139,7 @@ inline float SequenceAction::duration() const noexcept {
     );
 }
 
-inline AnyAction SequenceAction::reversed() const noexcept {
+constexpr AnyAction SequenceAction::reversed() const noexcept {
     return SequenceAction(
         actions()
             | std::views::transform(&AnyAction::reversed)
@@ -120,6 +148,14 @@ inline AnyAction SequenceAction::reversed() const noexcept {
     );
 }
 
-inline AnyAction WaitAction::reversed() const noexcept {
+constexpr AnyAction SequenceAction::erased() const noexcept {
+    return *this;
+}
+
+constexpr AnyAction WaitAction::reversed() const noexcept {
+    return *this;
+}
+
+constexpr AnyAction WaitAction::erased() const noexcept {
     return *this;
 }

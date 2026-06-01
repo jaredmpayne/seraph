@@ -32,6 +32,11 @@ public:
         return Box<T>(other.value());
     }
 
+    /// Accesses the contained value.
+    constexpr const T &operator*() const noexcept {
+        return value();
+    }
+
     /// The contained value.
     constexpr const T &value() const noexcept {
         return *m_value;

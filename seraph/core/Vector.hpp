@@ -105,8 +105,8 @@ public:
         return std::hypot(dx(), dy());
     }
 
-    /// Returns a `Vector` of equivalent magnitude reverse of the `Vector`.
-    constexpr Vector reversed() const noexcept {
+    /// Returns a `Vector` of negative magnitude to the `Vector`.
+    constexpr Vector negative() const noexcept {
         return Vector(-1.0f * dx(), -1.0f * dy());
     }
 
